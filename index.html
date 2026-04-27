@@ -2,365 +2,109 @@
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
-<title>OEE Fácil Industrial - WCH V3</title>
+<title>OEE WCH - Online</title>
+
 <style>
-*{box-sizing:border-box}
-body{font-family:Arial;background:#0f172a;color:#e5e7eb;margin:0}
-header{background:#1e3a8a;padding:18px;text-align:center}
-h1{margin:0}
-.container{padding:24px}
-.card{background:#111827;padding:24px;border-radius:16px;margin-bottom:22px;border:1px solid #263244}
-.menu{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:20px}
-.menu button{width:auto;padding:12px 18px}
-.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
-.grid2{display:grid;grid-template-columns:repeat(2,1fr);gap:24px}
-label{display:block;margin-bottom:7px;font-weight:bold}
-input,select,textarea,button{width:100%;padding:12px;border-radius:9px;border:0;font-size:14px}
-textarea{height:72px}
-button{background:#2563eb;color:white;font-weight:bold;cursor:pointer;margin-top:15px}
-button:hover{opacity:.9}
-.btn-green{background:#16a34a}.btn-orange{background:#f97316}.btn-purple{background:#7c3aed}.btn-red{background:#dc2626}
-.resultado{font-size:22px;font-weight:bold;color:#22c55e}
-.alerta{color:#f87171;font-weight:bold}.sucesso{color:#22c55e;font-weight:bold}
-.metricas{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;margin-top:18px}
-.metrica{background:#1f2937;padding:18px;border-radius:13px;text-align:center;border:1px solid #334155}
-.metrica h3{margin:0;color:#93c5fd;font-size:15px}
-.metrica p{font-size:26px;font-weight:bold;margin:10px 0 0}
-table{width:100%;border-collapse:collapse;margin-top:15px;font-size:14px}
-th,td{border:1px solid #374151;padding:9px;text-align:center}
-th{background:#1e40af}
-.oculto{display:none}
-.barra{height:22px;background:#1f2937;border-radius:10px;overflow:hidden}
-.barra span{display:block;height:100%;background:#22c55e;text-align:right;padding-right:6px;color:#fff;font-size:12px}
-.badge{padding:5px 9px;border-radius:8px;font-weight:bold}
-.ok{background:#166534;color:#dcfce7}
-.warn{background:#854d0e;color:#fef3c7}
-.bad{background:#991b1b;color:#fee2e2}
-@media(max-width:900px){.grid,.grid2,.metricas{grid-template-columns:1fr}}
+body{font-family:Arial;background:#0f172a;color:#fff;margin:0;padding:20px}
+input,button{padding:10px;margin:5px;border-radius:6px;border:none}
+button{background:#2563eb;color:#fff;font-weight:bold}
+.card{background:#111827;padding:20px;border-radius:12px;margin-bottom:20px}
 </style>
+
 </head>
 <body>
 
-<header>
-<h1>OEE Fácil Industrial - WCH V3.1</h1>
-<p>Com tempo de ciclo, produção teórica, dashboard, análise cruzada e OEE limitado a 100%</p>
-</header>
+<h1>OEE WCH - ONLINE 🔥</h1>
 
-<div class="container">
+<div class="card">
+<h3>Lançamento</h3>
 
-<div class="menu">
-<button onclick="mostrarTela('lancamento')" class="btn-green">+ Lançamento</button>
-<button onclick="mostrarTela('dashboard')">Dashboard</button>
-<button onclick="mostrarTela('analiseMaquinas')">Análise de Máquinas</button>
-<button onclick="mostrarTela('analiseOperadores')">Análise por Operador</button>
-<button onclick="mostrarTela('cruzamentos')">Cruzamentos</button>
-<button onclick="mostrarTela('operador')" class="btn-purple">Cadastrar Operador</button>
-<button onclick="mostrarTela('maquina')" class="btn-orange">Cadastrar Máquina</button>
-<button onclick="mostrarTela('historico')">Histórico</button>
+<input type="date" id="data"><br>
+<input type="text" id="maquina" placeholder="Máquina"><br>
+<input type="text" id="operador" placeholder="Operador"><br>
+
+<input type="number" id="tempoDisponivel" placeholder="Tempo turno (min)" value="525"><br>
+<input type="number" id="tempoCiclo" placeholder="Tempo ciclo (seg)" value="60"><br>
+
+<input type="number" id="qtdProduzida" placeholder="Produzido"><br>
+<input type="number" id="pecasRuins" placeholder="Peças ruins"><br>
+
+<input type="number" id="parada" placeholder="Parada não planejada (min)"><br>
+
+<button onclick="salvar()">Salvar</button>
+
+<p id="resultado"></p>
 </div>
 
-<div id="telaLancamento" class="card">
-<h2>Lançamento do Operador</h2>
-<div class="grid">
-<div><label>Data</label><input type="date" id="data"></div>
-<div><label>Ordem de Produção / OP</label><input type="text" id="op" placeholder="Ex: OP 15487"></div>
-<div><label>Máquina</label><select id="maquina"></select></div>
-<div><label>Turno</label><select id="turno"><option>Turno A</option><option>Turno B</option><option>Turno C</option></select></div>
-<div><label>Operador</label><select id="operador"></select></div>
-<div><label>Tempo disponível do turno (min)</label><input type="number" id="tempoDisponivel" value="525"></div>
-<div><label>Quantidade planejada</label><input type="number" id="qtdPlanejada" value="1000"></div>
-<div><label>Quantidade produzida</label><input type="number" id="qtdProduzida" value="0"></div>
-<div><label>Peças ruins</label><input type="number" id="pecasRuins" value="0"></div>
-<div><label>Tempo de ciclo padrão (seg/peça)</label><input type="number" id="tempoCiclo" value="60"></div>
-<div><label>Parada planejada (min)</label><input type="number" id="paradaPlanejada" value="0"></div>
-<div><label>Motivo parada planejada</label><select id="motivoPlanejada"><option>Nenhuma</option><option>Setup</option><option>Refeição</option><option>Manutenção preventiva</option><option>Reunião</option><option>Limpeza / 5S</option><option>Aguardando programação</option></select></div>
-<div><label>Parada não planejada (min)</label><input type="number" id="paradaNaoPlanejada" value="0"></div>
-<div><label>Motivo parada não planejada</label><select id="motivoNaoPlanejada"><option>Nenhuma</option><option>Quebra de máquina</option><option>Falta de operador</option><option>Falta de material</option><option>Falta de desenho</option><option>Problema de ferramenta</option><option>Problema de qualidade</option><option>Aguardando manutenção</option><option>Outro</option></select></div>
-</div>
-<label>Observação</label><textarea id="observacao"></textarea>
-<button onclick="salvarLancamento()">Calcular e Salvar Lançamento</button>
-<p id="mensagem"></p>
-<p class="resultado" id="resultadoOEE">OEE: --</p>
+<div class="card">
+<h3>Dashboard</h3>
+<div id="dados"></div>
 </div>
 
-<div id="telaDashboard" class="card oculto">
-<h2>Dashboard Geral</h2>
-<div class="grid2"><div><label>Data inicial</label><input type="date" id="dashDataIni"></div><div><label>Data final</label><input type="date" id="dashDataFim"></div></div>
-<button onclick="atualizarDashboard()">Atualizar Dashboard</button>
-<div class="metricas">
-<div class="metrica"><h3>OEE Médio</h3><p id="dashOee">--</p></div>
-<div class="metrica"><h3>Total Produzido</h3><p id="dashProd">--</p></div>
-<div class="metrica"><h3>Produção Teórica</h3><p id="dashTeorica">--</p></div>
-<div class="metrica"><h3>Parada Não Planejada</h3><p id="dashParada">--</p></div>
-</div>
-<h3>Ranking OEE por Máquina</h3><table><thead><tr><th>Máquina</th><th>OEE Médio</th><th>Visual</th></tr></thead><tbody id="dashRankingMaquinas"></tbody></table>
-<h3>Principais Motivos de Parada</h3><table><thead><tr><th>Motivo</th><th>Tempo Total</th></tr></thead><tbody id="dashMotivos"></tbody></table>
-</div>
+<script type="module">
 
-<div id="telaAnaliseMaquinas" class="card oculto">
-<h2>Análise de Máquinas</h2>
-<div class="grid2"><div><label>Data inicial</label><input type="date" id="maqDataIni"></div><div><label>Data final</label><input type="date" id="maqDataFim"></div></div>
-<button onclick="atualizarAnaliseMaquinas()">Filtrar Análise</button>
-<div class="metricas">
-<div class="metrica"><h3>OEE Médio</h3><p id="maqOeeMedio">--</p></div>
-<div class="metrica"><h3>Disponibilidade</h3><p id="maqDispMedia">--</p></div>
-<div class="metrica"><h3>Performance</h3><p id="maqPerfMedia">--</p></div>
-<div class="metrica"><h3>Qualidade</h3><p id="maqQualMedia">--</p></div>
-</div>
-<h3>OEE por Máquina</h3>
-<table><thead><tr><th>Máquina</th><th>Lançamentos</th><th>OEE Médio</th><th>Disponibilidade</th><th>Performance</th><th>Qualidade</th><th>Produção Real</th><th>Produção Teórica</th><th>Parada NP</th><th>Status</th></tr></thead><tbody id="tabelaAnaliseMaquina"></tbody></table>
-<h3>Máquinas que Mais Pararam / Quebraram</h3>
-<table><thead><tr><th>Máquina</th><th>Motivo</th><th>Tempo Total Parado</th></tr></thead><tbody id="tabelaQuebras"></tbody></table>
-</div>
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+import { getDatabase, ref, push, onValue } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js";
 
-<div id="telaAnaliseOperadores" class="card oculto">
-<h2>Análise por Operador</h2>
-<div class="grid2"><div><label>Data inicial</label><input type="date" id="opDataIni"></div><div><label>Data final</label><input type="date" id="opDataFim"></div></div>
-<button onclick="atualizarAnaliseOperadores()">Filtrar Operadores</button>
-<table><thead><tr><th>Operador</th><th>Lançamentos</th><th>OEE Médio</th><th>Performance</th><th>Qtd Produzida</th><th>Produção Teórica</th><th>Peças Ruins</th><th>Parada NP</th><th>Status</th></tr></thead><tbody id="tabelaOperadores"></tbody></table>
-</div>
+const firebaseConfig = {
+  databaseURL: "https://oee-wch-default-rtdb.firebaseio.com/"
+};
 
-<div id="telaCruzamentos" class="card oculto">
-<h2>Cruzamentos e Verificação dos Dados</h2>
-<button onclick="atualizarCruzamentos()">Atualizar Cruzamentos</button>
-<h3>Alertas de Consistência</h3>
-<table><thead><tr><th>Data</th><th>OP</th><th>Máquina</th><th>Operador</th><th>Alerta</th></tr></thead><tbody id="tabelaAlertas"></tbody></table>
-<h3>Operador x Máquina</h3>
-<table><thead><tr><th>Operador</th><th>Máquina</th><th>Lançamentos</th><th>OEE Médio</th><th>Performance</th><th>Parada NP</th></tr></thead><tbody id="tabelaOpMaq"></tbody></table>
-</div>
+const app = initializeApp(firebaseConfig);
+const db = getDatabase(app);
 
-<div id="telaOperador" class="card oculto">
-<h2>Cadastrar Operador</h2>
-<label>Nome / Código do Operador</label><input type="text" id="novoOperador" placeholder="Ex: 1024 - Edemilson">
-<button class="btn-purple" onclick="cadastrarOperador()">Salvar Operador</button><p id="msgOperador"></p>
-</div>
+function salvar(){
 
-<div id="telaMaquina" class="card oculto">
-<h2>Cadastrar Máquina</h2>
-<label>Nome da Máquina</label><input type="text" id="novaMaquina" placeholder="Ex: FRESA 02">
-<button class="btn-orange" onclick="cadastrarMaquina()">Salvar Máquina</button><p id="msgMaquina"></p>
-</div>
+let data = document.getElementById("data").value;
+let maquina = document.getElementById("maquina").value;
+let operador = document.getElementById("operador").value;
 
-<div id="telaHistorico" class="card oculto">
-<h2>Histórico de Lançamentos</h2>
-<button onclick="exportarCSV()">Exportar CSV</button>
-<button onclick="limparDados()" class="btn-red">Limpar Histórico</button>
-<table><thead><tr><th>Data</th><th>OP</th><th>Máquina</th><th>Operador</th><th>Turno</th><th>Ciclo</th><th>Prod. Real</th><th>Prod. Teórica</th><th>Boas</th><th>Ruins</th><th>Motivo NP</th><th>Parada NP</th><th>OEE</th></tr></thead><tbody id="tabelaHistorico"></tbody></table>
-</div>
+let tempoDisponivel = Number(document.getElementById("tempoDisponivel").value);
+let tempoCiclo = Number(document.getElementById("tempoCiclo").value);
 
-</div>
+let qtdProduzida = Number(document.getElementById("qtdProduzida").value);
+let pecasRuins = Number(document.getElementById("pecasRuins").value);
+let parada = Number(document.getElementById("parada").value);
 
-<script>
-let dados = JSON.parse(localStorage.getItem("oee_wch_dados_v3") || localStorage.getItem("oee_wch_dados") || "[]");
-let operadores = JSON.parse(localStorage.getItem("oee_wch_operadores") || '["1024 - Edemilson"]');
-let maquinas = JSON.parse(localStorage.getItem("oee_wch_maquinas") || '["GL300","GL250","INDEX","FRESA CNC","SERRA","PLASMA"]');
+let boas = qtdProduzida - pecasRuins;
+let tempoOperacional = tempoDisponivel - parada;
 
-document.getElementById("data").valueAsDate = new Date();
+let prodTeorica = (tempoOperacional * 60) / tempoCiclo;
 
-function salvarLocal(){
-localStorage.setItem("oee_wch_dados_v3", JSON.stringify(dados));
-localStorage.setItem("oee_wch_operadores", JSON.stringify(operadores));
-localStorage.setItem("oee_wch_maquinas", JSON.stringify(maquinas));
-}
+let disp = tempoOperacional / tempoDisponivel;
+let perf = qtdProduzida / prodTeorica;
+let qual = boas / qtdProduzida;
 
-function carregarCombos(){
-let op = document.getElementById("operador"), maq = document.getElementById("maquina");
-op.innerHTML = ""; maq.innerHTML = "";
-operadores.forEach(x => op.innerHTML += `<option>${x}</option>`);
-maquinas.forEach(x => maq.innerHTML += `<option>${x}</option>`);
-}
+if(perf > 1) perf = 1;
 
-function mostrarTela(tela){
-["Lancamento","Dashboard","AnaliseMaquinas","AnaliseOperadores","Cruzamentos","Operador","Maquina","Historico"].forEach(t=>{
-let el=document.getElementById("tela"+t); if(el) el.classList.add("oculto");
-});
-if(tela==="lancamento") document.getElementById("telaLancamento").classList.remove("oculto");
-if(tela==="dashboard"){document.getElementById("telaDashboard").classList.remove("oculto"); atualizarDashboard();}
-if(tela==="analiseMaquinas"){document.getElementById("telaAnaliseMaquinas").classList.remove("oculto"); atualizarAnaliseMaquinas();}
-if(tela==="analiseOperadores"){document.getElementById("telaAnaliseOperadores").classList.remove("oculto"); atualizarAnaliseOperadores();}
-if(tela==="cruzamentos"){document.getElementById("telaCruzamentos").classList.remove("oculto"); atualizarCruzamentos();}
-if(tela==="operador") document.getElementById("telaOperador").classList.remove("oculto");
-if(tela==="maquina") document.getElementById("telaMaquina").classList.remove("oculto");
-if(tela==="historico"){document.getElementById("telaHistorico").classList.remove("oculto"); atualizarHistorico();}
-}
+let oee = disp * perf * qual;
 
-function cadastrarOperador(){
-let nome = document.getElementById("novoOperador").value.trim();
-if(!nome){document.getElementById("msgOperador").innerHTML="Informe o operador.";return;}
-if(!operadores.includes(nome)) operadores.push(nome);
-salvarLocal(); carregarCombos(); document.getElementById("novoOperador").value="";
-document.getElementById("msgOperador").innerHTML="Operador cadastrado com sucesso.";
-}
-
-function cadastrarMaquina(){
-let nome = document.getElementById("novaMaquina").value.trim().toUpperCase();
-if(!nome){document.getElementById("msgMaquina").innerHTML="Informe a máquina.";return;}
-if(!maquinas.includes(nome)) maquinas.push(nome);
-salvarLocal(); carregarCombos(); document.getElementById("novaMaquina").value="";
-document.getElementById("msgMaquina").innerHTML="Máquina cadastrada com sucesso.";
-}
-
-function salvarLancamento(){
-const data=document.getElementById("data").value, opProducao=document.getElementById("op").value, maquina=document.getElementById("maquina").value, turno=document.getElementById("turno").value, operador=document.getElementById("operador").value;
-const tempoDisponivel=Number(document.getElementById("tempoDisponivel").value), qtdPlanejada=Number(document.getElementById("qtdPlanejada").value), qtdProduzida=Number(document.getElementById("qtdProduzida").value), pecasRuins=Number(document.getElementById("pecasRuins").value), tempoCiclo=Number(document.getElementById("tempoCiclo").value), paradaPlanejada=Number(document.getElementById("paradaPlanejada").value), paradaNaoPlanejada=Number(document.getElementById("paradaNaoPlanejada").value);
-const motivoPlanejada=document.getElementById("motivoPlanejada").value, motivoNaoPlanejada=document.getElementById("motivoNaoPlanejada").value, observacao=document.getElementById("observacao").value;
-
-const pecasBoas=qtdProduzida-pecasRuins;
-const tempoOperacional=tempoDisponivel-paradaPlanejada-paradaNaoPlanejada;
-if(!data){erro("Informe a data.");return;}
-if(!opProducao.trim()){erro("Informe a Ordem de Produção / OP.");return;}
-if(tempoCiclo<=0){erro("Tempo de ciclo precisa ser maior que zero.");return;}
-if(qtdPlanejada<=0){erro("Quantidade planejada precisa ser maior que zero.");return;}
-if(pecasBoas<0){erro("Peças ruins não podem ser maiores que peças produzidas.");return;}
-if(tempoOperacional<0){erro("Paradas maiores que tempo disponível.");return;}
-
-const producaoTeorica=(tempoOperacional*60)/tempoCiclo;
-let disponibilidade=tempoOperacional/tempoDisponivel;
-let performance=qtdProduzida/producaoTeorica;
-let qualidade=qtdProduzida>0 ? pecasBoas/qtdProduzida : 0;
-
-if(!isFinite(disponibilidade)) disponibilidade=0;
-if(!isFinite(performance)) performance=0;
-if(!isFinite(qualidade)) qualidade=0;
-if(performance>1) performance=1;
-
-const oee=disponibilidade*performance*qualidade;
-
-let registro={data,opProducao,maquina,operador,turno,tempoDisponivel,paradaPlanejada,motivoPlanejada,paradaNaoPlanejada,motivoNaoPlanejada,tempoOperacional,qtdPlanejada,qtdProduzida,pecasBoas,pecasRuins,tempoCiclo,producaoTeorica,disponibilidade:disponibilidade*100,performance:performance*100,qualidade:qualidade*100,oee:oee*100,observacao};
-
-dados.push(registro); salvarLocal();
-
-document.getElementById("resultadoOEE").innerText=`OEE: ${registro.oee.toFixed(2)}% | Disp.: ${registro.disponibilidade.toFixed(2)}% | Perf.: ${registro.performance.toFixed(2)}% | Qual.: ${registro.qualidade.toFixed(2)}% | Prod. teórica: ${registro.producaoTeorica.toFixed(0)} peças`;
-document.getElementById("mensagem").innerHTML="Lançamento salvo com sucesso.";
-document.getElementById("mensagem").className="sucesso";
-}
-
-function erro(msg){document.getElementById("mensagem").innerHTML=msg;document.getElementById("mensagem").className="alerta";}
-function filtrarPorData(lista, iniId, fimId){
-let ini=document.getElementById(iniId).value, fim=document.getElementById(fimId).value;
-return lista.filter(x=>{if(ini && x.data<ini) return false; if(fim && x.data>fim) return false; return true;});
-}
-function media(lista,campo){return lista.length ? lista.reduce((s,x)=>s+Number(x[campo]||0),0)/lista.length : 0;}
-function soma(lista,campo){return lista.reduce((s,x)=>s+Number(x[campo]||0),0);}
-function statusOEE(oee){
-if(oee>=75) return '<span class="badge ok">Bom</span>';
-if(oee>=55) return '<span class="badge warn">Atenção</span>';
-return '<span class="badge bad">Crítico</span>';
-}
-
-function atualizarHistorico(){
-let tabela=document.getElementById("tabelaHistorico"); tabela.innerHTML="";
-dados.forEach(item=>{
-let prodTeorica = Number(item.producaoTeorica || 0);
-tabela.innerHTML+=`<tr><td>${item.data}</td><td>${item.opProducao||""}</td><td>${item.maquina}</td><td>${item.operador}</td><td>${item.turno}</td><td>${item.tempoCiclo||""}s</td><td>${item.qtdProduzida}</td><td>${prodTeorica.toFixed(0)}</td><td>${item.pecasBoas}</td><td>${item.pecasRuins}</td><td>${item.motivoNaoPlanejada}</td><td>${item.paradaNaoPlanejada} min</td><td>${Number(item.oee||0).toFixed(2)}%</td></tr>`;
-});
-}
-
-function atualizarDashboard(){
-let lista=filtrarPorData(dados,"dashDataIni","dashDataFim");
-document.getElementById("dashOee").innerText=lista.length?media(lista,"oee").toFixed(2)+"%":"--";
-document.getElementById("dashProd").innerText=lista.length?soma(lista,"qtdProduzida"):"--";
-document.getElementById("dashTeorica").innerText=lista.length?soma(lista,"producaoTeorica").toFixed(0):"--";
-document.getElementById("dashParada").innerText=lista.length?soma(lista,"paradaNaoPlanejada")+" min":"--";
-
-let tabela=document.getElementById("dashRankingMaquinas"); tabela.innerHTML="";
-maquinas.forEach(m=>{
-let reg=lista.filter(x=>x.maquina===m);
-if(reg.length){let o=media(reg,"oee"); tabela.innerHTML+=`<tr><td>${m}</td><td>${o.toFixed(2)}%</td><td><div class="barra"><span style="width:${Math.min(o,100)}%">${o.toFixed(1)}%</span></div></td></tr>`;}
+push(ref(db,"lancamentos"),{
+data,maquina,operador,
+qtdProduzida,pecasRuins,
+tempoDisponivel,tempoCiclo,parada,
+oee:oee*100
 });
 
-let mapa={}; lista.forEach(x=>{
-if(Number(x.paradaNaoPlanejada)>0 && x.motivoNaoPlanejada!=="Nenhuma"){
-mapa[x.motivoNaoPlanejada]=(mapa[x.motivoNaoPlanejada]||0)+Number(x.paradaNaoPlanejada||0);
-}});
-let tbody=document.getElementById("dashMotivos"); tbody.innerHTML="";
-Object.entries(mapa).sort((a,b)=>b[1]-a[1]).forEach(([motivo,tempo])=>tbody.innerHTML+=`<tr><td>${motivo}</td><td>${tempo} min</td></tr>`);
+document.getElementById("resultado").innerText =
+"OEE: " + (oee*100).toFixed(2) + "%";
+
 }
 
-function atualizarAnaliseMaquinas(){
-let lista=filtrarPorData(dados,"maqDataIni","maqDataFim");
-document.getElementById("maqOeeMedio").innerText=lista.length?media(lista,"oee").toFixed(2)+"%":"--";
-document.getElementById("maqDispMedia").innerText=lista.length?media(lista,"disponibilidade").toFixed(2)+"%":"--";
-document.getElementById("maqPerfMedia").innerText=lista.length?media(lista,"performance").toFixed(2)+"%":"--";
-document.getElementById("maqQualMedia").innerText=lista.length?media(lista,"qualidade").toFixed(2)+"%":"--";
+onValue(ref(db,"lancamentos"),(snapshot)=>{
+let dados = snapshot.val();
+let html = "";
 
-let tabela=document.getElementById("tabelaAnaliseMaquina"); tabela.innerHTML="";
-maquinas.forEach(m=>{
-let reg=lista.filter(x=>x.maquina===m);
-if(reg.length){
-let parada=soma(reg,"paradaNaoPlanejada"), prod=soma(reg,"qtdProduzida"), teorica=soma(reg,"producaoTeorica"), o=media(reg,"oee");
-tabela.innerHTML+=`<tr><td>${m}</td><td>${reg.length}</td><td>${o.toFixed(2)}%</td><td>${media(reg,"disponibilidade").toFixed(2)}%</td><td>${media(reg,"performance").toFixed(2)}%</td><td>${media(reg,"qualidade").toFixed(2)}%</td><td>${prod}</td><td>${teorica.toFixed(0)}</td><td>${parada} min</td><td>${statusOEE(o)}</td></tr>`;
+for(let key in dados){
+let d = dados[key];
+html += `<p>${d.data} | ${d.maquina} | ${d.operador} | OEE: ${d.oee.toFixed(1)}%</p>`;
 }
+
+document.getElementById("dados").innerHTML = html;
+
 });
 
-let mapa={}; lista.forEach(x=>{
-if(Number(x.paradaNaoPlanejada)>0 && x.motivoNaoPlanejada!=="Nenhuma"){
-let chave=x.maquina+"||"+x.motivoNaoPlanejada;
-mapa[chave]=(mapa[chave]||0)+Number(x.paradaNaoPlanejada||0);
-}});
-let tabelaQ=document.getElementById("tabelaQuebras"); tabelaQ.innerHTML="";
-Object.entries(mapa).sort((a,b)=>b[1]-a[1]).forEach(([chave,tempo])=>{
-let p=chave.split("||"); tabelaQ.innerHTML+=`<tr><td>${p[0]}</td><td>${p[1]}</td><td>${tempo} min</td></tr>`;
-});
-}
-
-function atualizarAnaliseOperadores(){
-let lista=filtrarPorData(dados,"opDataIni","opDataFim"), tabela=document.getElementById("tabelaOperadores"); tabela.innerHTML="";
-operadores.forEach(o=>{
-let reg=lista.filter(x=>x.operador===o);
-if(reg.length){
-let oee=media(reg,"oee");
-tabela.innerHTML+=`<tr><td>${o}</td><td>${reg.length}</td><td>${oee.toFixed(2)}%</td><td>${media(reg,"performance").toFixed(2)}%</td><td>${soma(reg,"qtdProduzida")}</td><td>${soma(reg,"producaoTeorica").toFixed(0)}</td><td>${soma(reg,"pecasRuins")}</td><td>${soma(reg,"paradaNaoPlanejada")} min</td><td>${statusOEE(oee)}</td></tr>`;
-}
-});
-}
-
-function atualizarCruzamentos(){
-let alertas=document.getElementById("tabelaAlertas"); alertas.innerHTML="";
-dados.forEach(x=>{
-let arr=[];
-if(!x.opProducao) arr.push("OP não informada");
-if(Number(x.oee)>100) arr.push("OEE acima de 100%");
-if(Number(x.performance)>110) arr.push("Performance muito alta; conferir ciclo padrão");
-if(Number(x.tempoCiclo)<=0 || !x.tempoCiclo) arr.push("Tempo de ciclo ausente");
-if(Number(x.qtdProduzida)>Number(x.producaoTeorica||0)*1.2) arr.push("Produção real muito acima da teórica");
-if(Number(x.paradaNaoPlanejada)>0 && x.motivoNaoPlanejada==="Nenhuma") arr.push("Parada sem motivo");
-arr.forEach(a=>alertas.innerHTML+=`<tr><td>${x.data}</td><td>${x.opProducao||""}</td><td>${x.maquina}</td><td>${x.operador}</td><td><span class="badge warn">${a}</span></td></tr>`);
-});
-
-let mapa={};
-dados.forEach(x=>{
-let chave=x.operador+"||"+x.maquina;
-if(!mapa[chave]) mapa[chave]=[];
-mapa[chave].push(x);
-});
-let tbody=document.getElementById("tabelaOpMaq"); tbody.innerHTML="";
-Object.entries(mapa).sort((a,b)=>media(b[1],"oee")-media(a[1],"oee")).forEach(([chave,reg])=>{
-let p=chave.split("||");
-tbody.innerHTML+=`<tr><td>${p[0]}</td><td>${p[1]}</td><td>${reg.length}</td><td>${media(reg,"oee").toFixed(2)}%</td><td>${media(reg,"performance").toFixed(2)}%</td><td>${soma(reg,"paradaNaoPlanejada")} min</td></tr>`;
-});
-}
-
-function limparDados(){
-if(confirm("Deseja apagar todo o histórico?")){
-dados=[];salvarLocal();atualizarHistorico();atualizarDashboard();atualizarAnaliseMaquinas();atualizarAnaliseOperadores();atualizarCruzamentos();
-}
-}
-
-function exportarCSV(){
-if(!dados.length){alert("Não há dados para exportar.");return;}
-const colunas=Object.keys(dados[0]);
-const linhas=dados.map(obj=>colunas.map(c=>String(obj[c]??"").replaceAll(";"," ")).join(";"));
-const csv=colunas.join(";")+"\n"+linhas.join("\n");
-const blob=new Blob([csv],{type:"text/csv;charset=utf-8;"});
-const link=document.createElement("a");
-link.href=URL.createObjectURL(blob);
-link.download="historico_oee_wch_v3.csv";
-link.click();
-}
-
-carregarCombos();
-atualizarHistorico();
 </script>
+
 </body>
 </html>
