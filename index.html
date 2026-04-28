@@ -3,70 +3,40 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>OEE Fácil Industrial - WCH Online</title>
+<title>OEE Fácil Industrial - WCH V6</title>
 <style>
 *{box-sizing:border-box}
 body{font-family:Arial,Helvetica,sans-serif;background:#0f172a;color:#e5e7eb;margin:0}
 header{background:#1e3a8a;padding:18px;text-align:center;border-bottom:1px solid #334155}
-h1{margin:0;font-size:30px}
-h2{margin-top:0}
-.container{padding:24px}
+h1{margin:0;font-size:30px}h2{margin-top:0}.container{padding:24px}
 .card{background:#111827;padding:24px;border-radius:16px;margin-bottom:22px;border:1px solid #263244;box-shadow:0 8px 20px rgba(0,0,0,.25)}
-.menu{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:20px}
-.menu button{width:auto;padding:12px 18px}
-.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
-.grid2{display:grid;grid-template-columns:repeat(2,1fr);gap:24px}
+.menu{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:20px}.menu button{width:auto;padding:12px 18px}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}.grid2{display:grid;grid-template-columns:repeat(2,1fr);gap:24px}
 label{display:block;margin-bottom:7px;font-weight:bold;color:#f8fafc}
 input,select,textarea,button{width:100%;padding:12px;border-radius:9px;border:0;font-size:14px}
-input,select,textarea{background:#fff;color:#111827}
-textarea{height:72px}
-button{background:#2563eb;color:white;font-weight:bold;cursor:pointer;margin-top:15px}
-button:hover{opacity:.9}
-.btn-green{background:#16a34a}
-.btn-orange{background:#f97316}
-.btn-purple{background:#7c3aed}
-.btn-red{background:#dc2626}
-.resultado{font-size:22px;font-weight:bold;color:#22c55e}
-.alerta{color:#f87171;font-weight:bold}
-.sucesso{color:#22c55e;font-weight:bold}
-.info{color:#93c5fd;font-weight:bold}
-.metricas{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;margin-top:18px}
-.metrica{background:#1f2937;padding:18px;border-radius:13px;text-align:center;border:1px solid #334155}
-.metrica h3{margin:0;color:#93c5fd;font-size:15px}
-.metrica p{font-size:26px;font-weight:bold;margin:10px 0 0}
-table{width:100%;border-collapse:collapse;margin-top:15px;font-size:14px}
-th,td{border:1px solid #374151;padding:9px;text-align:center}
-th{background:#1e40af;color:#fff}
-tr:nth-child(even){background:#162033}
-.oculto{display:none}
-.barra{height:22px;background:#1f2937;border-radius:10px;overflow:hidden}
-.barra span{display:block;height:100%;background:#22c55e;text-align:right;padding-right:6px;color:#fff;font-size:12px;min-width:35px}
-.badge{padding:5px 9px;border-radius:8px;font-weight:bold;display:inline-block}
-.ok{background:#166534;color:#dcfce7}
-.warn{background:#854d0e;color:#fef3c7}
-.bad{background:#991b1b;color:#fee2e2}
-.status-online{font-size:14px;margin-top:8px;color:#bbf7d0}
-.linha-topo{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;align-items:center}
-@media(max-width:900px){
-.grid,.grid2,.metricas{grid-template-columns:1fr}
-.container{padding:14px}
-h1{font-size:24px}
-.menu button{width:100%}
-}
+input,select,textarea{background:#fff;color:#111827}textarea{height:72px}
+button{background:#2563eb;color:white;font-weight:bold;cursor:pointer;margin-top:15px}button:hover{opacity:.9}
+.btn-green{background:#16a34a}.btn-orange{background:#f97316}.btn-purple{background:#7c3aed}.btn-red{background:#dc2626}.btn-gray{background:#475569}.btn-small{width:auto;padding:7px 10px;margin:3px;font-size:12px}
+.resultado{font-size:22px;font-weight:bold;color:#22c55e}.alerta{color:#f87171;font-weight:bold}.sucesso{color:#22c55e;font-weight:bold}.info{color:#93c5fd;font-weight:bold}
+.metricas{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;margin-top:18px}.metrica{background:#1f2937;padding:18px;border-radius:13px;text-align:center;border:1px solid #334155}.metrica h3{margin:0;color:#93c5fd;font-size:15px}.metrica p{font-size:26px;font-weight:bold;margin:10px 0 0}
+table{width:100%;border-collapse:collapse;margin-top:15px;font-size:14px}th,td{border:1px solid #374151;padding:9px;text-align:center}th{background:#1e40af;color:#fff}tr:nth-child(even){background:#162033}
+.oculto{display:none}.barra{height:22px;background:#1f2937;border-radius:10px;overflow:hidden}.barra span{display:block;height:100%;background:#22c55e;text-align:right;padding-right:6px;color:#fff;font-size:12px;min-width:35px}
+.badge{padding:5px 9px;border-radius:8px;font-weight:bold;display:inline-block}.ok{background:#166534;color:#dcfce7}.warn{background:#854d0e;color:#fef3c7}.bad{background:#991b1b;color:#fee2e2}
+.status-online{font-size:14px;margin-top:8px;color:#bbf7d0}.linha-topo{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;align-items:center}
+.resumo-paradas{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin:18px 0}.resumo-box{background:#1f2937;padding:14px;border-radius:12px;border:1px solid #334155;text-align:center}.resumo-box strong{display:block;color:#93c5fd;margin-bottom:8px}
+@media(max-width:900px){.grid,.grid2,.metricas,.resumo-paradas{grid-template-columns:1fr}.container{padding:14px}h1{font-size:24px}.menu button{width:100%}}
 </style>
 </head>
 <body>
-
 <header>
-<h1>OEE Fácil Industrial - WCH Online</h1>
-<p>Sistema com Firebase, OP, tempo de ciclo, dashboard e análises</p>
+<h1>OEE Fácil Industrial - WCH V6</h1>
+<p>Firebase • Lançamento limpo • Paradas em tela separada • Performance real</p>
 <div class="status-online" id="statusFirebase">Conectando ao Firebase...</div>
 </header>
-
 <div class="container">
-
 <div class="menu">
 <button onclick="mostrarTela('lancamento')" class="btn-green">+ Lançamento</button>
+<button onclick="mostrarTela('paradas')" class="btn-orange">Adicionar Paradas</button>
 <button onclick="mostrarTela('dashboard')">Dashboard</button>
 <button onclick="mostrarTela('analiseMaquinas')">Análise de Máquinas</button>
 <button onclick="mostrarTela('analiseOperadores')">Análise por Operador</button>
@@ -77,11 +47,7 @@ h1{font-size:24px}
 </div>
 
 <div id="telaLancamento" class="card">
-<div class="linha-topo">
-<h2>Lançamento do Operador</h2>
-<span class="info">Banco online ativo</span>
-</div>
-
+<div class="linha-topo"><h2>Lançamento do Operador</h2><span class="info">Dados principais + paradas separadas</span></div>
 <div class="grid">
 <div><label>Data</label><input type="date" id="data"></div>
 <div><label>Ordem de Produção / OP</label><input type="text" id="op" placeholder="Ex: 52767"></div>
@@ -92,465 +58,117 @@ h1{font-size:24px}
 <div><label>Quantidade planejada</label><input type="number" id="qtdPlanejada" value="1000"></div>
 <div><label>Quantidade produzida</label><input type="number" id="qtdProduzida" value="0"></div>
 <div><label>Peças ruins</label><input type="number" id="pecasRuins" value="0"></div>
-<div><label>Tempo de ciclo padrão (seg/peça)</label><input type="number" id="tempoCiclo" value="60"></div>
-<div><label>Parada planejada (min)</label><input type="number" id="paradaPlanejada" value="0"></div>
-<div>
-<label>Motivo parada planejada</label>
-<select id="motivoPlanejada">
-<option>Nenhuma</option><option>Setup</option><option>Refeição</option><option>Manutenção preventiva</option><option>Reunião</option><option>Limpeza / 5S</option><option>Aguardando programação</option>
-</select>
+<div><label>Tempo de ciclo ideal (seg/peça)</label><input type="number" id="tempoCiclo" value="60"></div>
 </div>
-<div><label>Parada não planejada (min)</label><input type="number" id="paradaNaoPlanejada" value="0"></div>
-<div>
-<label>Motivo parada não planejada</label>
-<select id="motivoNaoPlanejada">
-<option>Nenhuma</option><option>Quebra de máquina</option><option>Falta de operador</option><option>Falta de material</option><option>Falta de desenho</option><option>Problema de ferramenta</option><option>Problema de qualidade</option><option>Aguardando manutenção</option><option>Outro</option>
-</select>
+<div class="resumo-paradas">
+<div class="resumo-box"><strong>Total Planejada</strong><span id="totalPlanejadaTela">0 min</span></div>
+<div class="resumo-box"><strong>Total Não Planejada</strong><span id="totalNaoPlanejadaTela">0 min</span></div>
+<div class="resumo-box"><strong>Quantidade de Paradas</strong><span id="qtdParadasTela">0</span></div>
 </div>
+<button onclick="mostrarTela('paradas')" class="btn-orange">+ Adicionar / Ver Paradas</button>
+<label>Observação</label><textarea id="observacao"></textarea>
+<button onclick="salvarLancamento()" class="btn-green">Calcular e Salvar Lançamento</button>
+<p id="mensagem"></p><p class="resultado" id="resultadoOEE">OEE: --</p>
 </div>
 
-<label>Observação</label><textarea id="observacao"></textarea>
-<button onclick="salvarLancamento()">Calcular e Salvar Lançamento</button>
-<p id="mensagem"></p>
-<p class="resultado" id="resultadoOEE">OEE: --</p>
+<div id="telaParadas" class="card oculto">
+<h2>Adicionar Paradas do Lançamento Atual</h2>
+<div class="grid">
+<div><label>Tipo de parada</label><select id="tipoParada"><option>Planejada</option><option>Não Planejada</option></select></div>
+<div><label>Motivo</label><select id="motivoParada"><option>Setup</option><option>Refeição</option><option>Manutenção preventiva</option><option>Reunião</option><option>Limpeza / 5S</option><option>Aguardando programação</option><option>Quebra de máquina</option><option>Falta de operador</option><option>Falta de material</option><option>Falta de desenho</option><option>Problema de ferramenta</option><option>Problema de qualidade</option><option>Aguardando manutenção</option><option>Outro</option></select></div>
+<div><label>Tempo parado (min)</label><input type="number" id="tempoParada" value="0"></div>
+</div>
+<button onclick="adicionarParada()" class="btn-orange">Adicionar Parada</button>
+<button onclick="mostrarTela('lancamento')" class="btn-gray">Voltar ao Lançamento</button>
+<h3>Paradas adicionadas</h3>
+<table><thead><tr><th>Tipo</th><th>Motivo</th><th>Tempo</th><th>Ação</th></tr></thead><tbody id="tabelaParadasAtuais"></tbody></table>
 </div>
 
 <div id="telaDashboard" class="card oculto">
 <h2>Dashboard Geral</h2>
-<div class="grid2">
-<div><label>Data inicial</label><input type="date" id="dashDataIni"></div>
-<div><label>Data final</label><input type="date" id="dashDataFim"></div>
-</div>
+<div class="grid2"><div><label>Data inicial</label><input type="date" id="dashDataIni"></div><div><label>Data final</label><input type="date" id="dashDataFim"></div></div>
 <button onclick="atualizarDashboard()">Atualizar Dashboard</button>
-<div class="metricas">
-<div class="metrica"><h3>OEE Médio</h3><p id="dashOee">--</p></div>
-<div class="metrica"><h3>Total Produzido</h3><p id="dashProd">--</p></div>
-<div class="metrica"><h3>Produção Teórica</h3><p id="dashTeorica">--</p></div>
-<div class="metrica"><h3>Parada Não Planejada</h3><p id="dashParada">--</p></div>
-</div>
-<h3>Ranking OEE por Máquina</h3>
-<table><thead><tr><th>Máquina</th><th>OEE Médio</th><th>Visual</th></tr></thead><tbody id="dashRankingMaquinas"></tbody></table>
-<h3>Principais Motivos de Parada</h3>
-<table><thead><tr><th>Motivo</th><th>Tempo Total</th></tr></thead><tbody id="dashMotivos"></tbody></table>
+<div class="metricas"><div class="metrica"><h3>OEE Médio</h3><p id="dashOee">--</p></div><div class="metrica"><h3>Total Produzido</h3><p id="dashProd">--</p></div><div class="metrica"><h3>Produção Teórica</h3><p id="dashTeorica">--</p></div><div class="metrica"><h3>Parada Não Planejada</h3><p id="dashParada">--</p></div></div>
+<h3>Ranking OEE por Máquina</h3><table><thead><tr><th>Máquina</th><th>OEE Médio</th><th>Visual</th></tr></thead><tbody id="dashRankingMaquinas"></tbody></table>
+<h3>Principais Motivos de Parada</h3><table><thead><tr><th>Tipo</th><th>Motivo</th><th>Tempo Total</th></tr></thead><tbody id="dashMotivos"></tbody></table>
 </div>
 
 <div id="telaAnaliseMaquinas" class="card oculto">
 <h2>Análise de Máquinas</h2>
-<div class="grid2">
-<div><label>Data inicial</label><input type="date" id="maqDataIni"></div>
-<div><label>Data final</label><input type="date" id="maqDataFim"></div>
-</div>
+<div class="grid2"><div><label>Data inicial</label><input type="date" id="maqDataIni"></div><div><label>Data final</label><input type="date" id="maqDataFim"></div></div>
 <button onclick="atualizarAnaliseMaquinas()">Filtrar Análise</button>
-<div class="metricas">
-<div class="metrica"><h3>OEE Médio</h3><p id="maqOeeMedio">--</p></div>
-<div class="metrica"><h3>Disponibilidade</h3><p id="maqDispMedia">--</p></div>
-<div class="metrica"><h3>Performance</h3><p id="maqPerfMedia">--</p></div>
-<div class="metrica"><h3>Qualidade</h3><p id="maqQualMedia">--</p></div>
-</div>
-<h3>OEE por Máquina</h3>
-<table>
-<thead><tr><th>Máquina</th><th>Lançamentos</th><th>OEE Médio</th><th>Disponibilidade</th><th>Performance</th><th>Qualidade</th><th>Produção Real</th><th>Produção Teórica</th><th>Parada NP</th><th>Status</th></tr></thead>
-<tbody id="tabelaAnaliseMaquina"></tbody>
-</table>
-<h3>Máquinas que Mais Pararam / Quebraram</h3>
-<table><thead><tr><th>Máquina</th><th>Motivo</th><th>Tempo Total Parado</th></tr></thead><tbody id="tabelaQuebras"></tbody></table>
+<div class="metricas"><div class="metrica"><h3>OEE Médio</h3><p id="maqOeeMedio">--</p></div><div class="metrica"><h3>Disponibilidade</h3><p id="maqDispMedia">--</p></div><div class="metrica"><h3>Performance Real</h3><p id="maqPerfMedia">--</p></div><div class="metrica"><h3>Qualidade</h3><p id="maqQualMedia">--</p></div></div>
+<h3>OEE por Máquina</h3><table><thead><tr><th>Máquina</th><th>Lançamentos</th><th>OEE Médio</th><th>Disponibilidade</th><th>Performance Real</th><th>Performance OEE</th><th>Qualidade</th><th>Produção Real</th><th>Produção Teórica</th><th>Parada NP</th><th>Status</th></tr></thead><tbody id="tabelaAnaliseMaquina"></tbody></table>
+<h3>Máquinas que Mais Pararam / Quebraram</h3><table><thead><tr><th>Máquina</th><th>Tipo</th><th>Motivo</th><th>Tempo Total Parado</th></tr></thead><tbody id="tabelaQuebras"></tbody></table>
 </div>
 
 <div id="telaAnaliseOperadores" class="card oculto">
 <h2>Análise por Operador</h2>
-<div class="grid2">
-<div><label>Data inicial</label><input type="date" id="opDataIni"></div>
-<div><label>Data final</label><input type="date" id="opDataFim"></div>
-</div>
+<div class="grid2"><div><label>Data inicial</label><input type="date" id="opDataIni"></div><div><label>Data final</label><input type="date" id="opDataFim"></div></div>
 <button onclick="atualizarAnaliseOperadores()">Filtrar Operadores</button>
-<table>
-<thead><tr><th>Operador</th><th>Lançamentos</th><th>OEE Médio</th><th>Performance</th><th>Qtd Produzida</th><th>Produção Teórica</th><th>Peças Ruins</th><th>Parada NP</th><th>Status</th></tr></thead>
-<tbody id="tabelaOperadores"></tbody>
-</table>
+<table><thead><tr><th>Operador</th><th>Lançamentos</th><th>OEE Médio</th><th>Performance Real</th><th>Qtd Produzida</th><th>Produção Teórica</th><th>Peças Ruins</th><th>Parada NP</th><th>Status</th></tr></thead><tbody id="tabelaOperadores"></tbody></table>
 </div>
 
 <div id="telaCruzamentos" class="card oculto">
-<h2>Cruzamentos e Verificação dos Dados</h2>
-<button onclick="atualizarCruzamentos()">Atualizar Cruzamentos</button>
-<h3>Alertas de Consistência</h3>
-<table><thead><tr><th>Data</th><th>OP</th><th>Máquina</th><th>Operador</th><th>Alerta</th></tr></thead><tbody id="tabelaAlertas"></tbody></table>
-<h3>Operador x Máquina</h3>
-<table><thead><tr><th>Operador</th><th>Máquina</th><th>Lançamentos</th><th>OEE Médio</th><th>Performance</th><th>Parada NP</th></tr></thead><tbody id="tabelaOpMaq"></tbody></table>
+<h2>Cruzamentos e Verificação dos Dados</h2><button onclick="atualizarCruzamentos()">Atualizar Cruzamentos</button>
+<h3>Alertas de Consistência</h3><table><thead><tr><th>Data</th><th>OP</th><th>Máquina</th><th>Operador</th><th>Alerta</th></tr></thead><tbody id="tabelaAlertas"></tbody></table>
+<h3>Operador x Máquina</h3><table><thead><tr><th>Operador</th><th>Máquina</th><th>Lançamentos</th><th>OEE Médio</th><th>Performance Real</th><th>Parada NP</th></tr></thead><tbody id="tabelaOpMaq"></tbody></table>
 </div>
 
 <div id="telaOperador" class="card oculto">
-<h2>Cadastrar Operador</h2>
-<label>Nome / Código do Operador</label>
-<input type="text" id="novoOperador" placeholder="Ex: 1024 - Edemilson">
-<button class="btn-purple" onclick="cadastrarOperador()">Salvar Operador</button>
-<p id="msgOperador"></p>
+<h2>Cadastrar Operador</h2><label>Nome / Código do Operador</label><input type="text" id="novoOperador" placeholder="Ex: 1024 - Edemilson"><button class="btn-purple" onclick="cadastrarOperador()">Salvar Operador</button><p id="msgOperador"></p>
+<h3>Operadores cadastrados</h3><table><thead><tr><th>Operador</th><th>Ações</th></tr></thead><tbody id="tabelaCadastroOperadores"></tbody></table>
 </div>
 
 <div id="telaMaquina" class="card oculto">
-<h2>Cadastrar Máquina</h2>
-<label>Nome da Máquina</label>
-<input type="text" id="novaMaquina" placeholder="Ex: FRESA 02">
-<button class="btn-orange" onclick="cadastrarMaquina()">Salvar Máquina</button>
-<p id="msgMaquina"></p>
+<h2>Cadastrar Máquina</h2><label>Nome da Máquina</label><input type="text" id="novaMaquina" placeholder="Ex: FRESA 02"><button class="btn-orange" onclick="cadastrarMaquina()">Salvar Máquina</button><p id="msgMaquina"></p>
+<h3>Máquinas cadastradas</h3><table><thead><tr><th>Máquina</th><th>Ações</th></tr></thead><tbody id="tabelaCadastroMaquinas"></tbody></table>
 </div>
 
 <div id="telaHistorico" class="card oculto">
-<h2>Histórico de Lançamentos</h2>
-<button onclick="exportarCSV()">Exportar CSV</button>
-<button onclick="limparDadosFirebase()" class="btn-red">Limpar Histórico Online</button>
-<table>
-<thead><tr><th>Data</th><th>OP</th><th>Máquina</th><th>Operador</th><th>Turno</th><th>Ciclo</th><th>Prod. Real</th><th>Prod. Teórica</th><th>Boas</th><th>Ruins</th><th>Motivo NP</th><th>Parada NP</th><th>OEE</th></tr></thead>
-<tbody id="tabelaHistorico"></tbody>
-</table>
+<h2>Histórico de Lançamentos</h2><button onclick="exportarCSV()">Exportar CSV</button><button onclick="limparDadosFirebase()" class="btn-red">Limpar Histórico Online</button>
+<table><thead><tr><th>Data</th><th>OP</th><th>Máquina</th><th>Operador</th><th>Turno</th><th>Ciclo</th><th>Prod. Real</th><th>Prod. Teórica</th><th>Boas</th><th>Ruins</th><th>Paradas</th><th>Parada NP</th><th>OEE</th><th>Perf. Real</th></tr></thead><tbody id="tabelaHistorico"></tbody></table>
 </div>
-
 </div>
 
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
 import { getDatabase, ref, push, set, onValue, remove } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js";
-
 const firebaseConfig = { databaseURL: "https://oee-wch-default-rtdb.firebaseio.com/" };
-const app = initializeApp(firebaseConfig);
-const db = getDatabase(app);
-
-let dados = [];
-let operadores = ["1024 - Edemilson"];
-let maquinas = ["GL300","GL250","INDEX","FRESA CNC","SERRA","PLASMA"];
-
-document.getElementById("data").valueAsDate = new Date();
-
-function salvarBaseCadastros(){
-  set(ref(db, "cadastros/operadores"), operadores);
-  set(ref(db, "cadastros/maquinas"), maquinas);
-}
-
-function carregarCombos(){
-  const op = document.getElementById("operador");
-  const maq = document.getElementById("maquina");
-  op.innerHTML = "";
-  maq.innerHTML = "";
-  operadores.forEach(x => op.innerHTML += `<option>${x}</option>`);
-  maquinas.forEach(x => maq.innerHTML += `<option>${x}</option>`);
-}
-
-window.mostrarTela = function(tela){
-  ["Lancamento","Dashboard","AnaliseMaquinas","AnaliseOperadores","Cruzamentos","Operador","Maquina","Historico"].forEach(t=>{
-    const el=document.getElementById("tela"+t);
-    if(el) el.classList.add("oculto");
-  });
-  if(tela==="lancamento") document.getElementById("telaLancamento").classList.remove("oculto");
-  if(tela==="dashboard"){document.getElementById("telaDashboard").classList.remove("oculto"); atualizarDashboard();}
-  if(tela==="analiseMaquinas"){document.getElementById("telaAnaliseMaquinas").classList.remove("oculto"); atualizarAnaliseMaquinas();}
-  if(tela==="analiseOperadores"){document.getElementById("telaAnaliseOperadores").classList.remove("oculto"); atualizarAnaliseOperadores();}
-  if(tela==="cruzamentos"){document.getElementById("telaCruzamentos").classList.remove("oculto"); atualizarCruzamentos();}
-  if(tela==="operador") document.getElementById("telaOperador").classList.remove("oculto");
-  if(tela==="maquina") document.getElementById("telaMaquina").classList.remove("oculto");
-  if(tela==="historico"){document.getElementById("telaHistorico").classList.remove("oculto"); atualizarHistorico();}
-}
-
-window.cadastrarOperador = function(){
-  const nome = document.getElementById("novoOperador").value.trim();
-  if(!nome){document.getElementById("msgOperador").innerHTML="Informe o operador.";return;}
-  if(!operadores.includes(nome)) operadores.push(nome);
-  salvarBaseCadastros();
-  carregarCombos();
-  document.getElementById("novoOperador").value="";
-  document.getElementById("msgOperador").innerHTML="Operador cadastrado com sucesso.";
-}
-
-window.cadastrarMaquina = function(){
-  const nome = document.getElementById("novaMaquina").value.trim().toUpperCase();
-  if(!nome){document.getElementById("msgMaquina").innerHTML="Informe a máquina.";return;}
-  if(!maquinas.includes(nome)) maquinas.push(nome);
-  salvarBaseCadastros();
-  carregarCombos();
-  document.getElementById("novaMaquina").value="";
-  document.getElementById("msgMaquina").innerHTML="Máquina cadastrada com sucesso.";
-}
-
-window.salvarLancamento = function(){
-  const data=document.getElementById("data").value;
-  const opProducao=document.getElementById("op").value.trim();
-  const maquina=document.getElementById("maquina").value;
-  const turno=document.getElementById("turno").value;
-  const operador=document.getElementById("operador").value;
-  const tempoDisponivel=Number(document.getElementById("tempoDisponivel").value);
-  const qtdPlanejada=Number(document.getElementById("qtdPlanejada").value);
-  const qtdProduzida=Number(document.getElementById("qtdProduzida").value);
-  const pecasRuins=Number(document.getElementById("pecasRuins").value);
-  const tempoCiclo=Number(document.getElementById("tempoCiclo").value);
-  const paradaPlanejada=Number(document.getElementById("paradaPlanejada").value);
-  const paradaNaoPlanejada=Number(document.getElementById("paradaNaoPlanejada").value);
-  const motivoPlanejada=document.getElementById("motivoPlanejada").value;
-  const motivoNaoPlanejada=document.getElementById("motivoNaoPlanejada").value;
-  const observacao=document.getElementById("observacao").value;
-
-  const pecasBoas=qtdProduzida-pecasRuins;
-  const tempoOperacional=tempoDisponivel-paradaPlanejada-paradaNaoPlanejada;
-
-  if(!data){erro("Informe a data.");return;}
-  if(!opProducao){erro("Informe a Ordem de Produção / OP.");return;}
-  if(tempoDisponivel<=0){erro("Tempo disponível precisa ser maior que zero.");return;}
-  if(tempoCiclo<=0){erro("Tempo de ciclo precisa ser maior que zero.");return;}
-  if(qtdPlanejada<=0){erro("Quantidade planejada precisa ser maior que zero.");return;}
-  if(pecasBoas<0){erro("Peças ruins não podem ser maiores que peças produzidas.");return;}
-  if(tempoOperacional<0){erro("Paradas maiores que tempo disponível.");return;}
-
-  const producaoTeorica=(tempoOperacional*60)/tempoCiclo;
-  let disponibilidade=tempoOperacional/tempoDisponivel;
-  let performance=producaoTeorica > 0 ? qtdProduzida/producaoTeorica : 0;
-  let qualidade=qtdProduzida>0 ? pecasBoas/qtdProduzida : 0;
-
-  if(!isFinite(disponibilidade)) disponibilidade=0;
-  if(!isFinite(performance)) performance=0;
-  if(!isFinite(qualidade)) qualidade=0;
-  if(performance>1) performance=1;
-  if(disponibilidade>1) disponibilidade=1;
-  if(qualidade>1) qualidade=1;
-
-  const oee=disponibilidade*performance*qualidade;
-
-  const registro={
-    data,opProducao,maquina,operador,turno,
-    tempoDisponivel,paradaPlanejada,motivoPlanejada,
-    paradaNaoPlanejada,motivoNaoPlanejada,tempoOperacional,
-    qtdPlanejada,qtdProduzida,pecasBoas,pecasRuins,
-    tempoCiclo,producaoTeorica,
-    disponibilidade:disponibilidade*100,
-    performance:performance*100,
-    qualidade:qualidade*100,
-    oee:oee*100,
-    observacao,
-    criadoEm:new Date().toISOString()
-  };
-
-  push(ref(db,"lancamentos"), registro);
-
-  document.getElementById("resultadoOEE").innerText=
-  `OEE: ${registro.oee.toFixed(2)}% | Disp.: ${registro.disponibilidade.toFixed(2)}% | Perf.: ${registro.performance.toFixed(2)}% | Qual.: ${registro.qualidade.toFixed(2)}% | Prod. teórica: ${registro.producaoTeorica.toFixed(0)} peças`;
-
-  document.getElementById("mensagem").innerHTML="Lançamento salvo online com sucesso.";
-  document.getElementById("mensagem").className="sucesso";
-}
-
-function erro(msg){
-  document.getElementById("mensagem").innerHTML=msg;
-  document.getElementById("mensagem").className="alerta";
-}
-
-function filtrarPorData(lista, iniId, fimId){
-  const ini=document.getElementById(iniId).value;
-  const fim=document.getElementById(fimId).value;
-  return lista.filter(x=>{
-    if(ini && x.data<ini) return false;
-    if(fim && x.data>fim) return false;
-    return true;
-  });
-}
-
-function media(lista,campo){ return lista.length ? lista.reduce((s,x)=>s+Number(x[campo]||0),0)/lista.length : 0; }
-function soma(lista,campo){ return lista.reduce((s,x)=>s+Number(x[campo]||0),0); }
-
-function statusOEE(oee){
-  if(oee>=75) return '<span class="badge ok">Bom</span>';
-  if(oee>=55) return '<span class="badge warn">Atenção</span>';
-  return '<span class="badge bad">Crítico</span>';
-}
-
-function atualizarHistorico(){
-  const tabela=document.getElementById("tabelaHistorico");
-  tabela.innerHTML="";
-  dados.slice().reverse().forEach(item=>{
-    const prodTeorica = Number(item.producaoTeorica || 0);
-    tabela.innerHTML+=`
-    <tr>
-      <td>${item.data}</td><td>${item.opProducao||""}</td><td>${item.maquina}</td>
-      <td>${item.operador}</td><td>${item.turno}</td><td>${item.tempoCiclo||""}s</td>
-      <td>${item.qtdProduzida}</td><td>${prodTeorica.toFixed(0)}</td>
-      <td>${item.pecasBoas}</td><td>${item.pecasRuins}</td>
-      <td>${item.motivoNaoPlanejada}</td><td>${item.paradaNaoPlanejada} min</td>
-      <td>${Number(item.oee||0).toFixed(2)}%</td>
-    </tr>`;
-  });
-}
-
-window.atualizarDashboard = function(){
-  const lista=filtrarPorData(dados,"dashDataIni","dashDataFim");
-  document.getElementById("dashOee").innerText=lista.length?media(lista,"oee").toFixed(2)+"%":"--";
-  document.getElementById("dashProd").innerText=lista.length?soma(lista,"qtdProduzida"):"--";
-  document.getElementById("dashTeorica").innerText=lista.length?soma(lista,"producaoTeorica").toFixed(0):"--";
-  document.getElementById("dashParada").innerText=lista.length?soma(lista,"paradaNaoPlanejada")+" min":"--";
-
-  const tabela=document.getElementById("dashRankingMaquinas");
-  tabela.innerHTML="";
-  maquinas.forEach(m=>{
-    const reg=lista.filter(x=>x.maquina===m);
-    if(reg.length){
-      const o=media(reg,"oee");
-      tabela.innerHTML+=`<tr><td>${m}</td><td>${o.toFixed(2)}%</td><td><div class="barra"><span style="width:${Math.min(o,100)}%">${o.toFixed(1)}%</span></div></td></tr>`;
-    }
-  });
-
-  const mapa={};
-  lista.forEach(x=>{
-    if(Number(x.paradaNaoPlanejada)>0 && x.motivoNaoPlanejada!=="Nenhuma"){
-      mapa[x.motivoNaoPlanejada]=(mapa[x.motivoNaoPlanejada]||0)+Number(x.paradaNaoPlanejada||0);
-    }
-  });
-  const tbody=document.getElementById("dashMotivos");
-  tbody.innerHTML="";
-  Object.entries(mapa).sort((a,b)=>b[1]-a[1]).forEach(([motivo,tempo])=>{
-    tbody.innerHTML+=`<tr><td>${motivo}</td><td>${tempo} min</td></tr>`;
-  });
-}
-
-window.atualizarAnaliseMaquinas = function(){
-  const lista=filtrarPorData(dados,"maqDataIni","maqDataFim");
-  document.getElementById("maqOeeMedio").innerText=lista.length?media(lista,"oee").toFixed(2)+"%":"--";
-  document.getElementById("maqDispMedia").innerText=lista.length?media(lista,"disponibilidade").toFixed(2)+"%":"--";
-  document.getElementById("maqPerfMedia").innerText=lista.length?media(lista,"performance").toFixed(2)+"%":"--";
-  document.getElementById("maqQualMedia").innerText=lista.length?media(lista,"qualidade").toFixed(2)+"%":"--";
-
-  const tabela=document.getElementById("tabelaAnaliseMaquina");
-  tabela.innerHTML="";
-  maquinas.forEach(m=>{
-    const reg=lista.filter(x=>x.maquina===m);
-    if(reg.length){
-      const parada=soma(reg,"paradaNaoPlanejada");
-      const prod=soma(reg,"qtdProduzida");
-      const teorica=soma(reg,"producaoTeorica");
-      const o=media(reg,"oee");
-      tabela.innerHTML+=`
-      <tr>
-        <td>${m}</td><td>${reg.length}</td><td>${o.toFixed(2)}%</td>
-        <td>${media(reg,"disponibilidade").toFixed(2)}%</td>
-        <td>${media(reg,"performance").toFixed(2)}%</td>
-        <td>${media(reg,"qualidade").toFixed(2)}%</td>
-        <td>${prod}</td><td>${teorica.toFixed(0)}</td><td>${parada} min</td><td>${statusOEE(o)}</td>
-      </tr>`;
-    }
-  });
-
-  const mapa={};
-  lista.forEach(x=>{
-    if(Number(x.paradaNaoPlanejada)>0 && x.motivoNaoPlanejada!=="Nenhuma"){
-      const chave=x.maquina+"||"+x.motivoNaoPlanejada;
-      mapa[chave]=(mapa[chave]||0)+Number(x.paradaNaoPlanejada||0);
-    }
-  });
-  const tabelaQ=document.getElementById("tabelaQuebras");
-  tabelaQ.innerHTML="";
-  Object.entries(mapa).sort((a,b)=>b[1]-a[1]).forEach(([chave,tempo])=>{
-    const p=chave.split("||");
-    tabelaQ.innerHTML+=`<tr><td>${p[0]}</td><td>${p[1]}</td><td>${tempo} min</td></tr>`;
-  });
-}
-
-window.atualizarAnaliseOperadores = function(){
-  const lista=filtrarPorData(dados,"opDataIni","opDataFim");
-  const tabela=document.getElementById("tabelaOperadores");
-  tabela.innerHTML="";
-  operadores.forEach(o=>{
-    const reg=lista.filter(x=>x.operador===o);
-    if(reg.length){
-      const oee=media(reg,"oee");
-      tabela.innerHTML+=`
-      <tr>
-        <td>${o}</td><td>${reg.length}</td><td>${oee.toFixed(2)}%</td>
-        <td>${media(reg,"performance").toFixed(2)}%</td>
-        <td>${soma(reg,"qtdProduzida")}</td>
-        <td>${soma(reg,"producaoTeorica").toFixed(0)}</td>
-        <td>${soma(reg,"pecasRuins")}</td>
-        <td>${soma(reg,"paradaNaoPlanejada")} min</td>
-        <td>${statusOEE(oee)}</td>
-      </tr>`;
-    }
-  });
-}
-
-window.atualizarCruzamentos = function(){
-  const alertas=document.getElementById("tabelaAlertas");
-  alertas.innerHTML="";
-  dados.forEach(x=>{
-    const arr=[];
-    if(!x.opProducao) arr.push("OP não informada");
-    if(Number(x.oee)>100) arr.push("OEE acima de 100%");
-    if(Number(x.performance)>100) arr.push("Performance acima de 100%");
-    if(Number(x.tempoCiclo)<=0 || !x.tempoCiclo) arr.push("Tempo de ciclo ausente");
-    if(Number(x.qtdProduzida)>Number(x.producaoTeorica||0)*1.2) arr.push("Produção real muito acima da teórica");
-    if(Number(x.paradaNaoPlanejada)>0 && x.motivoNaoPlanejada==="Nenhuma") arr.push("Parada sem motivo");
-    arr.forEach(a=>{
-      alertas.innerHTML+=`<tr><td>${x.data}</td><td>${x.opProducao||""}</td><td>${x.maquina}</td><td>${x.operador}</td><td><span class="badge warn">${a}</span></td></tr>`;
-    });
-  });
-
-  const mapa={};
-  dados.forEach(x=>{
-    const chave=x.operador+"||"+x.maquina;
-    if(!mapa[chave]) mapa[chave]=[];
-    mapa[chave].push(x);
-  });
-  const tbody=document.getElementById("tabelaOpMaq");
-  tbody.innerHTML="";
-  Object.entries(mapa).sort((a,b)=>media(b[1],"oee")-media(a[1],"oee")).forEach(([chave,reg])=>{
-    const p=chave.split("||");
-    tbody.innerHTML+=`
-    <tr>
-      <td>${p[0]}</td><td>${p[1]}</td><td>${reg.length}</td>
-      <td>${media(reg,"oee").toFixed(2)}%</td>
-      <td>${media(reg,"performance").toFixed(2)}%</td>
-      <td>${soma(reg,"paradaNaoPlanejada")} min</td>
-    </tr>`;
-  });
-}
-
-window.exportarCSV = function(){
-  if(!dados.length){alert("Não há dados para exportar.");return;}
-  const colunas=Object.keys(dados[0]).filter(c=>c!=="firebaseKey");
-  const linhas=dados.map(obj=>colunas.map(c=>String(obj[c]??"").replaceAll(";"," ")).join(";"));
-  const csv=colunas.join(";")+"\n"+linhas.join("\n");
-  const blob=new Blob([csv],{type:"text/csv;charset=utf-8;"});
-  const link=document.createElement("a");
-  link.href=URL.createObjectURL(blob);
-  link.download="historico_oee_wch_online.csv";
-  link.click();
-}
-
-window.limparDadosFirebase = function(){
-  if(confirm("Deseja apagar todo o histórico online? Essa ação afeta todos os usuários.")){
-    remove(ref(db,"lancamentos"));
-  }
-}
-
-onValue(ref(db,"cadastros/operadores"), snapshot=>{
-  const val=snapshot.val();
-  if(Array.isArray(val) && val.length) operadores=val;
-  carregarCombos();
-});
-
-onValue(ref(db,"cadastros/maquinas"), snapshot=>{
-  const val=snapshot.val();
-  if(Array.isArray(val) && val.length) maquinas=val;
-  carregarCombos();
-});
-
-onValue(ref(db,"lancamentos"), snapshot=>{
-  const val=snapshot.val();
-  if(!val){ dados=[]; }
-  else{ dados=Object.entries(val).map(([key,value])=>({...value,firebaseKey:key})); }
-
-  document.getElementById("statusFirebase").innerText=`Firebase conectado • ${dados.length} lançamentos carregados`;
-
-  atualizarHistorico();
-  atualizarDashboard();
-  atualizarAnaliseMaquinas();
-  atualizarAnaliseOperadores();
-  atualizarCruzamentos();
-});
-
-carregarCombos();
+const app = initializeApp(firebaseConfig); const db = getDatabase(app);
+let dados=[]; let operadores=["1024 - Edemilson"]; let maquinas=["GL300","GL250","INDEX","FRESA CNC","SERRA","PLASMA"]; let paradasAtuais=[];
+document.getElementById("data").valueAsDate=new Date();
+function salvarBaseCadastros(){set(ref(db,"cadastros/operadores"),operadores);set(ref(db,"cadastros/maquinas"),maquinas);}
+function carregarCombos(){const op=document.getElementById("operador"), maq=document.getElementById("maquina");op.innerHTML="";maq.innerHTML="";operadores.forEach(x=>op.innerHTML+=`<option>${x}</option>`);maquinas.forEach(x=>maq.innerHTML+=`<option>${x}</option>`);}
+function renderizarCadastros(){const to=document.getElementById("tabelaCadastroOperadores");if(to){to.innerHTML="";operadores.forEach((nome,i)=>to.innerHTML+=`<tr><td>${nome}</td><td><button class="btn-small" onclick="editarOperador(${i})">Editar</button><button class="btn-small btn-red" onclick="removerOperador(${i})">Remover</button></td></tr>`)}const tm=document.getElementById("tabelaCadastroMaquinas");if(tm){tm.innerHTML="";maquinas.forEach((nome,i)=>tm.innerHTML+=`<tr><td>${nome}</td><td><button class="btn-small" onclick="editarMaquina(${i})">Editar</button><button class="btn-small btn-red" onclick="removerMaquina(${i})">Remover</button></td></tr>`)}}
+function totaisParadas(){const paradaPlanejada=paradasAtuais.filter(p=>p.tipo==="Planejada").reduce((s,p)=>s+p.tempo,0);const paradaNaoPlanejada=paradasAtuais.filter(p=>p.tipo==="Não Planejada").reduce((s,p)=>s+p.tempo,0);return{paradaPlanejada,paradaNaoPlanejada};}
+function atualizarResumoParadas(){const t=totaisParadas();document.getElementById("totalPlanejadaTela").innerText=`${t.paradaPlanejada} min`;document.getElementById("totalNaoPlanejadaTela").innerText=`${t.paradaNaoPlanejada} min`;document.getElementById("qtdParadasTela").innerText=paradasAtuais.length;renderizarParadasAtuais();}
+function renderizarParadasAtuais(){const tbody=document.getElementById("tabelaParadasAtuais");if(!tbody)return;tbody.innerHTML="";paradasAtuais.forEach((p,i)=>tbody.innerHTML+=`<tr><td>${p.tipo}</td><td>${p.motivo}</td><td>${p.tempo} min</td><td><button class="btn-small btn-red" onclick="removerParadaAtual(${i})">Remover</button></td></tr>`);}
+window.adicionarParada=function(){const tipo=document.getElementById("tipoParada").value;const motivo=document.getElementById("motivoParada").value;const tempo=Number(document.getElementById("tempoParada").value);if(tempo<=0){alert("Informe um tempo de parada maior que zero.");return;}paradasAtuais.push({tipo,motivo,tempo});document.getElementById("tempoParada").value=0;atualizarResumoParadas();}
+window.removerParadaAtual=function(i){paradasAtuais.splice(i,1);atualizarResumoParadas();}
+window.mostrarTela=function(tela){["Lancamento","Paradas","Dashboard","AnaliseMaquinas","AnaliseOperadores","Cruzamentos","Operador","Maquina","Historico"].forEach(t=>{const el=document.getElementById("tela"+t);if(el)el.classList.add("oculto")});if(tela==="lancamento")document.getElementById("telaLancamento").classList.remove("oculto");if(tela==="paradas"){document.getElementById("telaParadas").classList.remove("oculto");atualizarResumoParadas();}if(tela==="dashboard"){document.getElementById("telaDashboard").classList.remove("oculto");atualizarDashboard();}if(tela==="analiseMaquinas"){document.getElementById("telaAnaliseMaquinas").classList.remove("oculto");atualizarAnaliseMaquinas();}if(tela==="analiseOperadores"){document.getElementById("telaAnaliseOperadores").classList.remove("oculto");atualizarAnaliseOperadores();}if(tela==="cruzamentos"){document.getElementById("telaCruzamentos").classList.remove("oculto");atualizarCruzamentos();}if(tela==="operador"){document.getElementById("telaOperador").classList.remove("oculto");renderizarCadastros();}if(tela==="maquina"){document.getElementById("telaMaquina").classList.remove("oculto");renderizarCadastros();}if(tela==="historico"){document.getElementById("telaHistorico").classList.remove("oculto");atualizarHistorico();}}
+window.cadastrarOperador=function(){const nome=document.getElementById("novoOperador").value.trim();if(!nome){document.getElementById("msgOperador").innerHTML="Informe o operador.";return;}if(!operadores.includes(nome))operadores.push(nome);salvarBaseCadastros();carregarCombos();renderizarCadastros();document.getElementById("novoOperador").value="";document.getElementById("msgOperador").innerHTML="Operador cadastrado com sucesso.";}
+window.editarOperador=function(i){const novo=prompt("Alterar operador:",operadores[i]);if(novo&&novo.trim()){operadores[i]=novo.trim();salvarBaseCadastros();carregarCombos();renderizarCadastros();}}
+window.removerOperador=function(i){if(confirm("Remover este operador?")){operadores.splice(i,1);salvarBaseCadastros();carregarCombos();renderizarCadastros();}}
+window.cadastrarMaquina=function(){const nome=document.getElementById("novaMaquina").value.trim().toUpperCase();if(!nome){document.getElementById("msgMaquina").innerHTML="Informe a máquina.";return;}if(!maquinas.includes(nome))maquinas.push(nome);salvarBaseCadastros();carregarCombos();renderizarCadastros();document.getElementById("novaMaquina").value="";document.getElementById("msgMaquina").innerHTML="Máquina cadastrada com sucesso.";}
+window.editarMaquina=function(i){const novo=prompt("Alterar máquina:",maquinas[i]);if(novo&&novo.trim()){maquinas[i]=novo.trim().toUpperCase();salvarBaseCadastros();carregarCombos();renderizarCadastros();}}
+window.removerMaquina=function(i){if(confirm("Remover esta máquina?")){maquinas.splice(i,1);salvarBaseCadastros();carregarCombos();renderizarCadastros();}}
+window.salvarLancamento=function(){const data=document.getElementById("data").value,opProducao=document.getElementById("op").value.trim(),maquina=document.getElementById("maquina").value,turno=document.getElementById("turno").value,operador=document.getElementById("operador").value;const tempoDisponivel=Number(document.getElementById("tempoDisponivel").value),qtdPlanejada=Number(document.getElementById("qtdPlanejada").value),qtdProduzida=Number(document.getElementById("qtdProduzida").value),pecasRuins=Number(document.getElementById("pecasRuins").value),tempoCiclo=Number(document.getElementById("tempoCiclo").value);const observacao=document.getElementById("observacao").value;const{paradaPlanejada,paradaNaoPlanejada}=totaisParadas();const paradasPlanejadas=paradasAtuais.filter(p=>p.tipo==="Planejada"),paradasNaoPlanejadas=paradasAtuais.filter(p=>p.tipo==="Não Planejada");const motivoPlanejada=paradasPlanejadas.map(p=>`${p.motivo} (${p.tempo} min)`).join(" | ")||"Nenhuma";const motivoNaoPlanejada=paradasNaoPlanejadas.map(p=>`${p.motivo} (${p.tempo} min)`).join(" | ")||"Nenhuma";const pecasBoas=qtdProduzida-pecasRuins;const tempoOperacional=tempoDisponivel-paradaPlanejada-paradaNaoPlanejada;if(!data){erro("Informe a data.");return;}if(!opProducao){erro("Informe a OP.");return;}if(tempoDisponivel<=0||tempoCiclo<=0||qtdPlanejada<=0){erro("Tempo disponível, ciclo e planejado precisam ser maiores que zero.");return;}if(pecasBoas<0){erro("Peças ruins não podem ser maiores que produzidas.");return;}if(tempoOperacional<0){erro("Paradas maiores que tempo disponível.");return;}const producaoTeorica=(tempoOperacional*60)/tempoCiclo;let disponibilidade=tempoOperacional/tempoDisponivel,performanceReal=producaoTeorica>0?qtdProduzida/producaoTeorica:0,qualidade=qtdProduzida>0?pecasBoas/qtdProduzida:0;if(!isFinite(disponibilidade))disponibilidade=0;if(!isFinite(performanceReal))performanceReal=0;if(!isFinite(qualidade))qualidade=0;const performanceOEE=Math.min(performanceReal,1),disponibilidadeOEE=Math.min(disponibilidade,1),qualidadeOEE=Math.min(qualidade,1);const oee=disponibilidadeOEE*performanceOEE*qualidadeOEE;const registro={data,opProducao,maquina,operador,turno,tempoDisponivel,paradaPlanejada,motivoPlanejada,paradasPlanejadas,paradaNaoPlanejada,motivoNaoPlanejada,paradasNaoPlanejadas,paradas:paradasAtuais,tempoOperacional,qtdPlanejada,qtdProduzida,pecasBoas,pecasRuins,tempoCiclo,producaoTeorica,disponibilidade:disponibilidadeOEE*100,performance:performanceReal*100,performanceOEE:performanceOEE*100,qualidade:qualidadeOEE*100,oee:oee*100,ganhoProcesso:(performanceReal*100)-100,observacao,criadoEm:new Date().toISOString()};push(ref(db,"lancamentos"),registro);document.getElementById("resultadoOEE").innerText=`OEE: ${registro.oee.toFixed(2)}% | Disp.: ${registro.disponibilidade.toFixed(2)}% | Perf. Real: ${registro.performance.toFixed(2)}% | Perf. OEE: ${registro.performanceOEE.toFixed(2)}% | Qual.: ${registro.qualidade.toFixed(2)}% | Prod. teórica: ${registro.producaoTeorica.toFixed(0)} peças`;document.getElementById("mensagem").innerHTML="Lançamento salvo online com sucesso.";document.getElementById("mensagem").className="sucesso";paradasAtuais=[];atualizarResumoParadas();}
+function erro(msg){document.getElementById("mensagem").innerHTML=msg;document.getElementById("mensagem").className="alerta";}
+function filtrarPorData(lista,iniId,fimId){const ini=document.getElementById(iniId).value,fim=document.getElementById(fimId).value;return lista.filter(x=>{if(ini&&x.data<ini)return false;if(fim&&x.data>fim)return false;return true;});}
+function media(lista,campo){return lista.length?lista.reduce((s,x)=>s+Number(x[campo]||0),0)/lista.length:0;}function soma(lista,campo){return lista.reduce((s,x)=>s+Number(x[campo]||0),0);}function statusOEE(oee){if(oee>=75)return'<span class="badge ok">Bom</span>';if(oee>=55)return'<span class="badge warn">Atenção</span>';return'<span class="badge bad">Crítico</span>';}
+function coletarParadas(lista){const todas=[];lista.forEach(l=>{if(Array.isArray(l.paradas)){l.paradas.forEach(p=>todas.push({...p,maquina:l.maquina,data:l.data,operador:l.operador}));}else{if(Number(l.paradaPlanejada)>0)todas.push({tipo:"Planejada",motivo:l.motivoPlanejada||"Planejada",tempo:Number(l.paradaPlanejada),maquina:l.maquina});if(Number(l.paradaNaoPlanejada)>0)todas.push({tipo:"Não Planejada",motivo:l.motivoNaoPlanejada||"Não Planejada",tempo:Number(l.paradaNaoPlanejada),maquina:l.maquina});}});return todas;}
+function atualizarHistorico(){const tabela=document.getElementById("tabelaHistorico");tabela.innerHTML="";dados.slice().reverse().forEach(item=>{const prodTeorica=Number(item.producaoTeorica||0),qtdParadas=Array.isArray(item.paradas)?item.paradas.length:0;tabela.innerHTML+=`<tr><td>${item.data}</td><td>${item.opProducao||""}</td><td>${item.maquina}</td><td>${item.operador}</td><td>${item.turno}</td><td>${item.tempoCiclo||""}s</td><td>${item.qtdProduzida}</td><td>${prodTeorica.toFixed(0)}</td><td>${item.pecasBoas}</td><td>${item.pecasRuins}</td><td>${qtdParadas}</td><td>${item.paradaNaoPlanejada||0} min</td><td>${Number(item.oee||0).toFixed(2)}%</td><td>${Number(item.performance||0).toFixed(2)}%</td></tr>`;});}
+window.atualizarDashboard=function(){const lista=filtrarPorData(dados,"dashDataIni","dashDataFim");document.getElementById("dashOee").innerText=lista.length?media(lista,"oee").toFixed(2)+"%":"--";document.getElementById("dashProd").innerText=lista.length?soma(lista,"qtdProduzida"):"--";document.getElementById("dashTeorica").innerText=lista.length?soma(lista,"producaoTeorica").toFixed(0):"--";document.getElementById("dashParada").innerText=lista.length?soma(lista,"paradaNaoPlanejada")+" min":"--";const tabela=document.getElementById("dashRankingMaquinas");tabela.innerHTML="";maquinas.forEach(m=>{const reg=lista.filter(x=>x.maquina===m);if(reg.length){const o=media(reg,"oee");tabela.innerHTML+=`<tr><td>${m}</td><td>${o.toFixed(2)}%</td><td><div class="barra"><span style="width:${Math.min(o,100)}%">${o.toFixed(1)}%</span></div></td></tr>`;}});const mapa={};coletarParadas(lista).forEach(p=>{const chave=p.tipo+"||"+p.motivo;mapa[chave]=(mapa[chave]||0)+Number(p.tempo||0);});const tbody=document.getElementById("dashMotivos");tbody.innerHTML="";Object.entries(mapa).sort((a,b)=>b[1]-a[1]).forEach(([chave,tempo])=>{const[tipo,motivo]=chave.split("||");tbody.innerHTML+=`<tr><td>${tipo}</td><td>${motivo}</td><td>${tempo} min</td></tr>`;});}
+window.atualizarAnaliseMaquinas=function(){const lista=filtrarPorData(dados,"maqDataIni","maqDataFim");document.getElementById("maqOeeMedio").innerText=lista.length?media(lista,"oee").toFixed(2)+"%":"--";document.getElementById("maqDispMedia").innerText=lista.length?media(lista,"disponibilidade").toFixed(2)+"%":"--";document.getElementById("maqPerfMedia").innerText=lista.length?media(lista,"performance").toFixed(2)+"%":"--";document.getElementById("maqQualMedia").innerText=lista.length?media(lista,"qualidade").toFixed(2)+"%":"--";const tabela=document.getElementById("tabelaAnaliseMaquina");tabela.innerHTML="";maquinas.forEach(m=>{const reg=lista.filter(x=>x.maquina===m);if(reg.length){const parada=soma(reg,"paradaNaoPlanejada"),prod=soma(reg,"qtdProduzida"),teorica=soma(reg,"producaoTeorica"),o=media(reg,"oee");tabela.innerHTML+=`<tr><td>${m}</td><td>${reg.length}</td><td>${o.toFixed(2)}%</td><td>${media(reg,"disponibilidade").toFixed(2)}%</td><td>${media(reg,"performance").toFixed(2)}%</td><td>${media(reg,"performanceOEE").toFixed(2)}%</td><td>${media(reg,"qualidade").toFixed(2)}%</td><td>${prod}</td><td>${teorica.toFixed(0)}</td><td>${parada} min</td><td>${statusOEE(o)}</td></tr>`;}});const mapa={};coletarParadas(lista).forEach(p=>{const chave=(p.maquina||"")+"||"+p.tipo+"||"+p.motivo;mapa[chave]=(mapa[chave]||0)+Number(p.tempo||0);});const tq=document.getElementById("tabelaQuebras");tq.innerHTML="";Object.entries(mapa).sort((a,b)=>b[1]-a[1]).forEach(([chave,tempo])=>{const p=chave.split("||");tq.innerHTML+=`<tr><td>${p[0]}</td><td>${p[1]}</td><td>${p[2]}</td><td>${tempo} min</td></tr>`;});}
+window.atualizarAnaliseOperadores=function(){const lista=filtrarPorData(dados,"opDataIni","opDataFim"),tabela=document.getElementById("tabelaOperadores");tabela.innerHTML="";operadores.forEach(o=>{const reg=lista.filter(x=>x.operador===o);if(reg.length){const oee=media(reg,"oee");tabela.innerHTML+=`<tr><td>${o}</td><td>${reg.length}</td><td>${oee.toFixed(2)}%</td><td>${media(reg,"performance").toFixed(2)}%</td><td>${soma(reg,"qtdProduzida")}</td><td>${soma(reg,"producaoTeorica").toFixed(0)}</td><td>${soma(reg,"pecasRuins")}</td><td>${soma(reg,"paradaNaoPlanejada")} min</td><td>${statusOEE(oee)}</td></tr>`;}});}
+window.atualizarCruzamentos=function(){const alertas=document.getElementById("tabelaAlertas");alertas.innerHTML="";dados.forEach(x=>{const arr=[];if(!x.opProducao)arr.push("OP não informada");if(Number(x.oee)>100)arr.push("OEE acima de 100%");if(Number(x.tempoCiclo)<=0||!x.tempoCiclo)arr.push("Tempo de ciclo ausente");if(Number(x.qtdProduzida)>Number(x.producaoTeorica||0)*1.2)arr.push("Produção real muito acima da teórica; conferir ciclo padrão");if(Array.isArray(x.paradas)){x.paradas.forEach(p=>{if(Number(p.tempo)>0&&(!p.motivo||p.motivo==="Nenhuma"))arr.push("Parada sem motivo");});}arr.forEach(a=>alertas.innerHTML+=`<tr><td>${x.data}</td><td>${x.opProducao||""}</td><td>${x.maquina}</td><td>${x.operador}</td><td><span class="badge warn">${a}</span></td></tr>`);});const mapa={};dados.forEach(x=>{const chave=x.operador+"||"+x.maquina;if(!mapa[chave])mapa[chave]=[];mapa[chave].push(x);});const tbody=document.getElementById("tabelaOpMaq");tbody.innerHTML="";Object.entries(mapa).sort((a,b)=>media(b[1],"oee")-media(a[1],"oee")).forEach(([chave,reg])=>{const p=chave.split("||");tbody.innerHTML+=`<tr><td>${p[0]}</td><td>${p[1]}</td><td>${reg.length}</td><td>${media(reg,"oee").toFixed(2)}%</td><td>${media(reg,"performance").toFixed(2)}%</td><td>${soma(reg,"paradaNaoPlanejada")} min</td></tr>`;});}
+window.exportarCSV=function(){if(!dados.length){alert("Não há dados para exportar.");return;}const colunas=Object.keys(dados[0]).filter(c=>c!=="firebaseKey"&&c!=="paradas"&&c!=="paradasPlanejadas"&&c!=="paradasNaoPlanejadas");const linhas=dados.map(obj=>colunas.map(c=>String(obj[c]??"").replaceAll(";"," ")).join(";"));const csv=colunas.join(";")+"\n"+linhas.join("\n");const blob=new Blob([csv],{type:"text/csv;charset=utf-8;"});const link=document.createElement("a");link.href=URL.createObjectURL(blob);link.download="historico_oee_wch_online_v6.csv";link.click();}
+window.limparDadosFirebase=function(){if(confirm("Deseja apagar todo o histórico online? Essa ação afeta todos os usuários.")){remove(ref(db,"lancamentos"));}}
+onValue(ref(db,"cadastros/operadores"),s=>{const val=s.val();if(Array.isArray(val)&&val.length)operadores=val;carregarCombos();renderizarCadastros();});
+onValue(ref(db,"cadastros/maquinas"),s=>{const val=s.val();if(Array.isArray(val)&&val.length)maquinas=val;carregarCombos();renderizarCadastros();});
+onValue(ref(db,"lancamentos"),s=>{const val=s.val();dados=!val?[]:Object.entries(val).map(([key,value])=>({...value,firebaseKey:key}));document.getElementById("statusFirebase").innerText=`Firebase conectado • ${dados.length} lançamentos carregados`;atualizarHistorico();atualizarDashboard();atualizarAnaliseMaquinas();atualizarAnaliseOperadores();atualizarCruzamentos();});
+carregarCombos();renderizarCadastros();atualizarResumoParadas();
 </script>
-
 </body>
 </html>
