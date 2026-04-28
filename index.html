@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>OEE Fácil Industrial - WCH V7</title>
+<title>OEE Fácil Industrial - WCH V8</title>
 <style>
 *{box-sizing:border-box}
 body{font-family:Arial,Helvetica,sans-serif;background:#0f172a;color:#e5e7eb;margin:0}
@@ -29,8 +29,8 @@ table{width:100%;border-collapse:collapse;margin-top:15px;font-size:14px}th,td{b
 </head>
 <body>
 <header>
-<h1>OEE Fácil Industrial - WCH V7</h1>
-<p>Firebase • Controle de horário • Paradas separadas • Pareto no Dashboard</p>
+<h1>OEE Fácil Industrial - WCH V8</h1>
+<p>Firebase • Lançamento limpo • Paradas separadas • Pareto profissional</p>
 <div class="status-online" id="statusFirebase">Conectando ao Firebase...</div>
 </header>
 <div class="container">
@@ -54,15 +54,12 @@ table{width:100%;border-collapse:collapse;margin-top:15px;font-size:14px}th,td{b
 <div><label>Máquina</label><select id="maquina"></select></div>
 <div><label>Turno</label><select id="turno"><option>Turno A</option><option>Turno B</option><option>Turno C</option></select></div>
 <div><label>Operador</label><select id="operador"></select></div>
-<div><label>Hora início</label><input type="time" id="horaInicio"></div>
-<div><label>Hora fim</label><input type="time" id="horaFim"></div>
-<div><label>Tempo disponível do lançamento (min)</label><input type="number" id="tempoDisponivel" value="525"></div>
+<div><label>Tempo disponível do turno (min)</label><input type="number" id="tempoDisponivel" value="525"></div>
 <div><label>Quantidade planejada</label><input type="number" id="qtdPlanejada" value="1000"></div>
 <div><label>Quantidade produzida</label><input type="number" id="qtdProduzida" value="0"></div>
 <div><label>Peças ruins</label><input type="number" id="pecasRuins" value="0"></div>
 <div><label>Tempo de ciclo ideal (seg/peça)</label><input type="number" id="tempoCiclo" value="60"></div>
 </div>
-<button onclick="calcularTempoPorHorario()" class="btn-gray">Calcular tempo pelo horário</button>
 <div class="resumo-paradas">
 <div class="resumo-box"><strong>Total Planejada</strong><span id="totalPlanejadaTela">0 min</span></div>
 <div class="resumo-box"><strong>Total Não Planejada</strong><span id="totalNaoPlanejadaTela">0 min</span></div>
@@ -95,7 +92,7 @@ table{width:100%;border-collapse:collapse;margin-top:15px;font-size:14px}th,td{b
 <h3>Ranking OEE por Máquina</h3><table><thead><tr><th>Máquina</th><th>OEE Médio</th><th>Visual</th></tr></thead><tbody id="dashRankingMaquinas"></tbody></table>
 <h3>Principais Motivos de Parada</h3><table><thead><tr><th>Tipo</th><th>Motivo</th><th>Tempo Total</th></tr></thead><tbody id="dashMotivos"></tbody></table>
 <h3>Gráfico de Pareto das Paradas</h3>
-<canvas id="graficoPareto" height="120" style="background:#0b1220;border:1px solid #334155;border-radius:12px;padding:12px;width:100%;"></canvas>
+<canvas id="graficoPareto" height="130" style="background:#0b1220;border:1px solid #334155;border-radius:12px;padding:12px;width:100%;"></canvas>
 </div>
 
 <div id="telaAnaliseMaquinas" class="card oculto">
@@ -132,7 +129,7 @@ table{width:100%;border-collapse:collapse;margin-top:15px;font-size:14px}th,td{b
 
 <div id="telaHistorico" class="card oculto">
 <h2>Histórico de Lançamentos</h2><button onclick="exportarCSV()">Exportar CSV</button><button onclick="limparDadosFirebase()" class="btn-red">Limpar Histórico Online</button>
-<table><thead><tr><th>Data</th><th>OP</th><th>Máquina</th><th>Operador</th><th>Turno</th><th>Início</th><th>Fim</th><th>Ciclo</th><th>Prod. Real</th><th>Prod. Teórica</th><th>Boas</th><th>Ruins</th><th>Paradas</th><th>Parada NP</th><th>OEE</th><th>Perf. Real</th></tr></thead><tbody id="tabelaHistorico"></tbody></table>
+<table><thead><tr><th>Data</th><th>OP</th><th>Máquina</th><th>Operador</th><th>Turno</th><th>Ciclo</th><th>Prod. Real</th><th>Prod. Teórica</th><th>Boas</th><th>Ruins</th><th>Paradas</th><th>Parada NP</th><th>OEE</th><th>Perf. Real</th></tr></thead><tbody id="tabelaHistorico"></tbody></table>
 </div>
 </div>
 
@@ -143,31 +140,6 @@ const firebaseConfig = { databaseURL: "https://oee-wch-default-rtdb.firebaseio.c
 const app = initializeApp(firebaseConfig); const db = getDatabase(app);
 let dados=[]; let operadores=["1024 - Edemilson"]; let maquinas=["GL300","GL250","INDEX","FRESA CNC","SERRA","PLASMA"]; let paradasAtuais=[];
 document.getElementById("data").valueAsDate=new Date();
-
-function minutosEntreHoras(inicio, fim){
-  if(!inicio || !fim) return null;
-  const [hi, mi] = inicio.split(":").map(Number);
-  const [hf, mf] = fim.split(":").map(Number);
-  let ini = hi * 60 + mi;
-  let fi = hf * 60 + mf;
-  if(fi < ini) fi += 24 * 60;
-  return fi - ini;
-}
-
-window.calcularTempoPorHorario = function(){
-  const inicio = document.getElementById("horaInicio").value;
-  const fim = document.getElementById("horaFim").value;
-  const min = minutosEntreHoras(inicio, fim);
-  if(min === null){
-    alert("Informe hora início e hora fim.");
-    return;
-  }
-  if(min <= 0){
-    alert("Horário inválido.");
-    return;
-  }
-  document.getElementById("tempoDisponivel").value = min;
-}
 function salvarBaseCadastros(){set(ref(db,"cadastros/operadores"),operadores);set(ref(db,"cadastros/maquinas"),maquinas);}
 function carregarCombos(){const op=document.getElementById("operador"), maq=document.getElementById("maquina");op.innerHTML="";maq.innerHTML="";operadores.forEach(x=>op.innerHTML+=`<option>${x}</option>`);maquinas.forEach(x=>maq.innerHTML+=`<option>${x}</option>`);}
 function renderizarCadastros(){const to=document.getElementById("tabelaCadastroOperadores");if(to){to.innerHTML="";operadores.forEach((nome,i)=>to.innerHTML+=`<tr><td>${nome}</td><td><button class="btn-small" onclick="editarOperador(${i})">Editar</button><button class="btn-small btn-red" onclick="removerOperador(${i})">Remover</button></td></tr>`)}const tm=document.getElementById("tabelaCadastroMaquinas");if(tm){tm.innerHTML="";maquinas.forEach((nome,i)=>tm.innerHTML+=`<tr><td>${nome}</td><td><button class="btn-small" onclick="editarMaquina(${i})">Editar</button><button class="btn-small btn-red" onclick="removerMaquina(${i})">Remover</button></td></tr>`)}}
@@ -183,48 +155,69 @@ window.removerOperador=function(i){if(confirm("Remover este operador?")){operado
 window.cadastrarMaquina=function(){const nome=document.getElementById("novaMaquina").value.trim().toUpperCase();if(!nome){document.getElementById("msgMaquina").innerHTML="Informe a máquina.";return;}if(!maquinas.includes(nome))maquinas.push(nome);salvarBaseCadastros();carregarCombos();renderizarCadastros();document.getElementById("novaMaquina").value="";document.getElementById("msgMaquina").innerHTML="Máquina cadastrada com sucesso.";}
 window.editarMaquina=function(i){const novo=prompt("Alterar máquina:",maquinas[i]);if(novo&&novo.trim()){maquinas[i]=novo.trim().toUpperCase();salvarBaseCadastros();carregarCombos();renderizarCadastros();}}
 window.removerMaquina=function(i){if(confirm("Remover esta máquina?")){maquinas.splice(i,1);salvarBaseCadastros();carregarCombos();renderizarCadastros();}}
-window.salvarLancamento=function(){const data=document.getElementById("data").value,opProducao=document.getElementById("op").value.trim(),maquina=document.getElementById("maquina").value,turno=document.getElementById("turno").value,operador=document.getElementById("operador").value;const horaInicio=document.getElementById("horaInicio").value,horaFim=document.getElementById("horaFim").value;let tempoDisponivel=Number(document.getElementById("tempoDisponivel").value);const tempoCalculado=minutosEntreHoras(horaInicio,horaFim);if(tempoCalculado!==null&&tempoCalculado>0){tempoDisponivel=tempoCalculado;document.getElementById("tempoDisponivel").value=tempoCalculado;}const qtdPlanejada=Number(document.getElementById("qtdPlanejada").value),qtdProduzida=Number(document.getElementById("qtdProduzida").value),pecasRuins=Number(document.getElementById("pecasRuins").value),tempoCiclo=Number(document.getElementById("tempoCiclo").value);const observacao=document.getElementById("observacao").value;const{paradaPlanejada,paradaNaoPlanejada}=totaisParadas();const paradasPlanejadas=paradasAtuais.filter(p=>p.tipo==="Planejada"),paradasNaoPlanejadas=paradasAtuais.filter(p=>p.tipo==="Não Planejada");const motivoPlanejada=paradasPlanejadas.map(p=>`${p.motivo} (${p.tempo} min)`).join(" | ")||"Nenhuma";const motivoNaoPlanejada=paradasNaoPlanejadas.map(p=>`${p.motivo} (${p.tempo} min)`).join(" | ")||"Nenhuma";const pecasBoas=qtdProduzida-pecasRuins;const tempoOperacional=tempoDisponivel-paradaPlanejada-paradaNaoPlanejada;if(!data){erro("Informe a data.");return;}if(!opProducao){erro("Informe a OP.");return;}if(tempoDisponivel<=0||tempoCiclo<=0||qtdPlanejada<=0){erro("Tempo disponível, ciclo e planejado precisam ser maiores que zero.");return;}if(pecasBoas<0){erro("Peças ruins não podem ser maiores que produzidas.");return;}if(tempoOperacional<0){erro("Paradas maiores que tempo disponível.");return;}const producaoTeorica=(tempoOperacional*60)/tempoCiclo;let disponibilidade=tempoOperacional/tempoDisponivel,performanceReal=producaoTeorica>0?qtdProduzida/producaoTeorica:0,qualidade=qtdProduzida>0?pecasBoas/qtdProduzida:0;if(!isFinite(disponibilidade))disponibilidade=0;if(!isFinite(performanceReal))performanceReal=0;if(!isFinite(qualidade))qualidade=0;const performanceOEE=Math.min(performanceReal,1),disponibilidadeOEE=Math.min(disponibilidade,1),qualidadeOEE=Math.min(qualidade,1);const oee=disponibilidadeOEE*performanceOEE*qualidadeOEE;const registro={data,opProducao,maquina,operador,turno,horaInicio,horaFim,tempoDisponivel,paradaPlanejada,motivoPlanejada,paradasPlanejadas,paradaNaoPlanejada,motivoNaoPlanejada,paradasNaoPlanejadas,paradas:paradasAtuais,tempoOperacional,qtdPlanejada,qtdProduzida,pecasBoas,pecasRuins,tempoCiclo,producaoTeorica,disponibilidade:disponibilidadeOEE*100,performance:performanceReal*100,performanceOEE:performanceOEE*100,qualidade:qualidadeOEE*100,oee:oee*100,ganhoProcesso:(performanceReal*100)-100,observacao,criadoEm:new Date().toISOString()};push(ref(db,"lancamentos"),registro);document.getElementById("resultadoOEE").innerText=`OEE: ${registro.oee.toFixed(2)}% | Disp.: ${registro.disponibilidade.toFixed(2)}% | Perf. Real: ${registro.performance.toFixed(2)}% | Perf. OEE: ${registro.performanceOEE.toFixed(2)}% | Qual.: ${registro.qualidade.toFixed(2)}% | Prod. teórica: ${registro.producaoTeorica.toFixed(0)} peças`;document.getElementById("mensagem").innerHTML="Lançamento salvo online com sucesso.";document.getElementById("mensagem").className="sucesso";paradasAtuais=[];atualizarResumoParadas();}
+window.salvarLancamento=function(){const data=document.getElementById("data").value,opProducao=document.getElementById("op").value.trim(),maquina=document.getElementById("maquina").value,turno=document.getElementById("turno").value,operador=document.getElementById("operador").value;const tempoDisponivel=Number(document.getElementById("tempoDisponivel").value),qtdPlanejada=Number(document.getElementById("qtdPlanejada").value),qtdProduzida=Number(document.getElementById("qtdProduzida").value),pecasRuins=Number(document.getElementById("pecasRuins").value),tempoCiclo=Number(document.getElementById("tempoCiclo").value);const observacao=document.getElementById("observacao").value;const{paradaPlanejada,paradaNaoPlanejada}=totaisParadas();const paradasPlanejadas=paradasAtuais.filter(p=>p.tipo==="Planejada"),paradasNaoPlanejadas=paradasAtuais.filter(p=>p.tipo==="Não Planejada");const motivoPlanejada=paradasPlanejadas.map(p=>`${p.motivo} (${p.tempo} min)`).join(" | ")||"Nenhuma";const motivoNaoPlanejada=paradasNaoPlanejadas.map(p=>`${p.motivo} (${p.tempo} min)`).join(" | ")||"Nenhuma";const pecasBoas=qtdProduzida-pecasRuins;const tempoOperacional=tempoDisponivel-paradaPlanejada-paradaNaoPlanejada;if(!data){erro("Informe a data.");return;}if(!opProducao){erro("Informe a OP.");return;}if(tempoDisponivel<=0||tempoCiclo<=0||qtdPlanejada<=0){erro("Tempo disponível, ciclo e planejado precisam ser maiores que zero.");return;}if(pecasBoas<0){erro("Peças ruins não podem ser maiores que produzidas.");return;}if(tempoOperacional<0){erro("Paradas maiores que tempo disponível.");return;}const producaoTeorica=(tempoOperacional*60)/tempoCiclo;let disponibilidade=tempoOperacional/tempoDisponivel,performanceReal=producaoTeorica>0?qtdProduzida/producaoTeorica:0,qualidade=qtdProduzida>0?pecasBoas/qtdProduzida:0;if(!isFinite(disponibilidade))disponibilidade=0;if(!isFinite(performanceReal))performanceReal=0;if(!isFinite(qualidade))qualidade=0;const performanceOEE=Math.min(performanceReal,1),disponibilidadeOEE=Math.min(disponibilidade,1),qualidadeOEE=Math.min(qualidade,1);const oee=disponibilidadeOEE*performanceOEE*qualidadeOEE;const registro={data,opProducao,maquina,operador,turno,tempoDisponivel,paradaPlanejada,motivoPlanejada,paradasPlanejadas,paradaNaoPlanejada,motivoNaoPlanejada,paradasNaoPlanejadas,paradas:paradasAtuais,tempoOperacional,qtdPlanejada,qtdProduzida,pecasBoas,pecasRuins,tempoCiclo,producaoTeorica,disponibilidade:disponibilidadeOEE*100,performance:performanceReal*100,performanceOEE:performanceOEE*100,qualidade:qualidadeOEE*100,oee:oee*100,ganhoProcesso:(performanceReal*100)-100,observacao,criadoEm:new Date().toISOString()};push(ref(db,"lancamentos"),registro);document.getElementById("resultadoOEE").innerText=`OEE: ${registro.oee.toFixed(2)}% | Disp.: ${registro.disponibilidade.toFixed(2)}% | Perf. Real: ${registro.performance.toFixed(2)}% | Perf. OEE: ${registro.performanceOEE.toFixed(2)}% | Qual.: ${registro.qualidade.toFixed(2)}% | Prod. teórica: ${registro.producaoTeorica.toFixed(0)} peças`;document.getElementById("mensagem").innerHTML="Lançamento salvo online com sucesso.";document.getElementById("mensagem").className="sucesso";paradasAtuais=[];atualizarResumoParadas();}
 function erro(msg){document.getElementById("mensagem").innerHTML=msg;document.getElementById("mensagem").className="alerta";}
 function filtrarPorData(lista,iniId,fimId){const ini=document.getElementById(iniId).value,fim=document.getElementById(fimId).value;return lista.filter(x=>{if(ini&&x.data<ini)return false;if(fim&&x.data>fim)return false;return true;});}
 function media(lista,campo){return lista.length?lista.reduce((s,x)=>s+Number(x[campo]||0),0)/lista.length:0;}function soma(lista,campo){return lista.reduce((s,x)=>s+Number(x[campo]||0),0);}function statusOEE(oee){if(oee>=75)return'<span class="badge ok">Bom</span>';if(oee>=55)return'<span class="badge warn">Atenção</span>';return'<span class="badge bad">Crítico</span>';}
 function coletarParadas(lista){const todas=[];lista.forEach(l=>{if(Array.isArray(l.paradas)){l.paradas.forEach(p=>todas.push({...p,maquina:l.maquina,data:l.data,operador:l.operador}));}else{if(Number(l.paradaPlanejada)>0)todas.push({tipo:"Planejada",motivo:l.motivoPlanejada||"Planejada",tempo:Number(l.paradaPlanejada),maquina:l.maquina});if(Number(l.paradaNaoPlanejada)>0)todas.push({tipo:"Não Planejada",motivo:l.motivoNaoPlanejada||"Não Planejada",tempo:Number(l.paradaNaoPlanejada),maquina:l.maquina});}});return todas;}
-function atualizarHistorico(){const tabela=document.getElementById("tabelaHistorico");tabela.innerHTML="";dados.slice().reverse().forEach(item=>{const prodTeorica=Number(item.producaoTeorica||0),qtdParadas=Array.isArray(item.paradas)?item.paradas.length:0;tabela.innerHTML+=`<tr><td>${item.data}</td><td>${item.opProducao||""}</td><td>${item.maquina}</td><td>${item.operador}</td><td>${item.turno}</td><td>${item.horaInicio||""}</td><td>${item.horaFim||""}</td><td>${item.tempoCiclo||""}s</td><td>${item.qtdProduzida}</td><td>${prodTeorica.toFixed(0)}</td><td>${item.pecasBoas}</td><td>${item.pecasRuins}</td><td>${qtdParadas}</td><td>${item.paradaNaoPlanejada||0} min</td><td>${Number(item.oee||0).toFixed(2)}%</td><td>${Number(item.performance||0).toFixed(2)}%</td></tr>`;});}
+function atualizarHistorico(){const tabela=document.getElementById("tabelaHistorico");tabela.innerHTML="";dados.slice().reverse().forEach(item=>{const prodTeorica=Number(item.producaoTeorica||0),qtdParadas=Array.isArray(item.paradas)?item.paradas.length:0;tabela.innerHTML+=`<tr><td>${item.data}</td><td>${item.opProducao||""}</td><td>${item.maquina}</td><td>${item.operador}</td><td>${item.turno}</td><td>${item.tempoCiclo||""}s</td><td>${item.qtdProduzida}</td><td>${prodTeorica.toFixed(0)}</td><td>${item.pecasBoas}</td><td>${item.pecasRuins}</td><td>${qtdParadas}</td><td>${item.paradaNaoPlanejada||0} min</td><td>${Number(item.oee||0).toFixed(2)}%</td><td>${Number(item.performance||0).toFixed(2)}%</td></tr>`;});}
 
 function desenharPareto(mapa){
   const canvas = document.getElementById("graficoPareto");
   if(!canvas) return;
+
   const ctx = canvas.getContext("2d");
   const dpr = window.devicePixelRatio || 1;
   const rect = canvas.getBoundingClientRect();
-  canvas.width = rect.width * dpr;
-  canvas.height = 360 * dpr;
-  ctx.scale(dpr, dpr);
-  const w = rect.width;
-  const h = 360;
-  ctx.clearRect(0,0,w,h);
-  ctx.fillStyle = "#0b1220";
-  ctx.fillRect(0,0,w,h);
+  const largura = rect.width || 1000;
+  const altura = 390;
 
-  const itens = Object.entries(mapa).sort((a,b)=>b[1]-a[1]).slice(0,8);
+  canvas.width = largura * dpr;
+  canvas.height = altura * dpr;
+  ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+
+  ctx.clearRect(0, 0, largura, altura);
+  ctx.fillStyle = "#0b1220";
+  ctx.fillRect(0, 0, largura, altura);
+
+  const itens = Object.entries(mapa)
+    .sort((a,b)=>b[1]-a[1])
+    .slice(0,8);
+
   if(!itens.length){
     ctx.fillStyle="#e5e7eb";
     ctx.font="16px Arial";
-    ctx.fillText("Sem paradas para exibir.",20,40);
+    ctx.fillText("Sem paradas para exibir.", 24, 45);
     return;
   }
 
   const total = itens.reduce((s,x)=>s+x[1],0);
   const max = Math.max(...itens.map(x=>x[1]));
-  const marginL = 50, marginB = 80, marginT = 30, marginR = 40;
-  const chartW = w - marginL - marginR;
-  const chartH = h - marginT - marginB;
-  const barW = chartW / itens.length * 0.6;
 
-  ctx.strokeStyle="#334155";
+  const marginL = 60;
+  const marginR = 50;
+  const marginT = 72;
+  const marginB = 90;
+
+  const chartW = largura - marginL - marginR;
+  const chartH = altura - marginT - marginB;
+  const bloco = chartW / itens.length;
+  const barW = bloco * 0.58;
+
+  ctx.fillStyle = "#93c5fd";
+  ctx.font = "bold 17px Arial";
+  ctx.fillText("Pareto das Paradas - tempo parado por motivo", marginL, 34);
+
+  ctx.fillStyle = "#94a3b8";
+  ctx.font = "12px Arial";
+  ctx.fillText("Barras = minutos parados | Linha = percentual acumulado", marginL, 54);
+
+  ctx.strokeStyle = "#334155";
+  ctx.lineWidth = 1;
   ctx.beginPath();
   ctx.moveTo(marginL, marginT);
-  ctx.lineTo(marginL, marginT+chartH);
-  ctx.lineTo(marginL+chartW, marginT+chartH);
+  ctx.lineTo(marginL, marginT + chartH);
+  ctx.lineTo(marginL + chartW, marginT + chartH);
   ctx.stroke();
 
   let acumulado = 0;
@@ -233,32 +226,37 @@ function desenharPareto(mapa){
   itens.forEach((item, i)=>{
     const label = item[0].split("||").pop();
     const valor = item[1];
-    const x = marginL + (chartW / itens.length) * i + (chartW / itens.length - barW)/2;
-    const barH = (valor/max) * chartH;
+
+    const x = marginL + bloco * i + (bloco - barW) / 2;
+    const barH = (valor / max) * chartH;
     const y = marginT + chartH - barH;
 
-    ctx.fillStyle="#2563eb";
-    ctx.fillRect(x,y,barW,barH);
+    ctx.fillStyle = "#2563eb";
+    ctx.fillRect(x, y, barW, barH);
 
-    ctx.fillStyle="#e5e7eb";
-    ctx.font="12px Arial";
-    ctx.fillText(valor+"m",x,y-6);
+    ctx.fillStyle = "#e5e7eb";
+    ctx.font = "bold 12px Arial";
+    ctx.textAlign = "center";
+    ctx.fillText(valor + "m", x + barW/2, y - 8);
 
     ctx.save();
-    ctx.translate(x+barW/2, marginT+chartH+15);
+    ctx.translate(x + barW/2, marginT + chartH + 18);
     ctx.rotate(-Math.PI/5);
-    ctx.fillText(label.substring(0,18),0,0);
+    ctx.fillStyle = "#cbd5e1";
+    ctx.font = "12px Arial";
+    ctx.textAlign = "right";
+    ctx.fillText(label.substring(0,22), 0, 0);
     ctx.restore();
 
     acumulado += valor;
     const perc = acumulado / total;
     const py = marginT + chartH - (perc * chartH);
     const px = x + barW/2;
-    pontos.push([px,py,Math.round(perc*100)]);
+    pontos.push([px, py, Math.round(perc*100)]);
   });
 
-  ctx.strokeStyle="#f97316";
-  ctx.lineWidth=3;
+  ctx.strokeStyle = "#f97316";
+  ctx.lineWidth = 3;
   ctx.beginPath();
   pontos.forEach((p,i)=>{
     if(i===0) ctx.moveTo(p[0],p[1]);
@@ -266,18 +264,21 @@ function desenharPareto(mapa){
   });
   ctx.stroke();
 
-  ctx.fillStyle="#f97316";
   pontos.forEach(p=>{
+    ctx.fillStyle = "#f97316";
     ctx.beginPath();
     ctx.arc(p[0],p[1],4,0,Math.PI*2);
     ctx.fill();
-    ctx.fillText(p[2]+"%",p[0]+5,p[1]-5);
+
+    ctx.fillStyle = "#f97316";
+    ctx.font = "bold 12px Arial";
+    ctx.textAlign = "left";
+    ctx.fillText(p[2] + "%", p[0] + 7, p[1] - 7);
   });
 
-  ctx.fillStyle="#e5e7eb";
-  ctx.font="14px Arial";
-  ctx.fillText("Pareto: tempo parado por motivo", marginL, 20);
+  ctx.textAlign = "start";
 }
+
 window.atualizarDashboard=function(){const lista=filtrarPorData(dados,"dashDataIni","dashDataFim");document.getElementById("dashOee").innerText=lista.length?media(lista,"oee").toFixed(2)+"%":"--";document.getElementById("dashProd").innerText=lista.length?soma(lista,"qtdProduzida"):"--";document.getElementById("dashTeorica").innerText=lista.length?soma(lista,"producaoTeorica").toFixed(0):"--";document.getElementById("dashParada").innerText=lista.length?soma(lista,"paradaNaoPlanejada")+" min":"--";const tabela=document.getElementById("dashRankingMaquinas");tabela.innerHTML="";maquinas.forEach(m=>{const reg=lista.filter(x=>x.maquina===m);if(reg.length){const o=media(reg,"oee");tabela.innerHTML+=`<tr><td>${m}</td><td>${o.toFixed(2)}%</td><td><div class="barra"><span style="width:${Math.min(o,100)}%">${o.toFixed(1)}%</span></div></td></tr>`;}});const mapa={};coletarParadas(lista).forEach(p=>{const chave=p.tipo+"||"+p.motivo;mapa[chave]=(mapa[chave]||0)+Number(p.tempo||0);});const tbody=document.getElementById("dashMotivos");tbody.innerHTML="";Object.entries(mapa).sort((a,b)=>b[1]-a[1]).forEach(([chave,tempo])=>{const[tipo,motivo]=chave.split("||");tbody.innerHTML+=`<tr><td>${tipo}</td><td>${motivo}</td><td>${tempo} min</td></tr>`;});desenharPareto(mapa);}
 window.atualizarAnaliseMaquinas=function(){const lista=filtrarPorData(dados,"maqDataIni","maqDataFim");document.getElementById("maqOeeMedio").innerText=lista.length?media(lista,"oee").toFixed(2)+"%":"--";document.getElementById("maqDispMedia").innerText=lista.length?media(lista,"disponibilidade").toFixed(2)+"%":"--";document.getElementById("maqPerfMedia").innerText=lista.length?media(lista,"performance").toFixed(2)+"%":"--";document.getElementById("maqQualMedia").innerText=lista.length?media(lista,"qualidade").toFixed(2)+"%":"--";const tabela=document.getElementById("tabelaAnaliseMaquina");tabela.innerHTML="";maquinas.forEach(m=>{const reg=lista.filter(x=>x.maquina===m);if(reg.length){const parada=soma(reg,"paradaNaoPlanejada"),prod=soma(reg,"qtdProduzida"),teorica=soma(reg,"producaoTeorica"),o=media(reg,"oee");tabela.innerHTML+=`<tr><td>${m}</td><td>${reg.length}</td><td>${o.toFixed(2)}%</td><td>${media(reg,"disponibilidade").toFixed(2)}%</td><td>${media(reg,"performance").toFixed(2)}%</td><td>${media(reg,"performanceOEE").toFixed(2)}%</td><td>${media(reg,"qualidade").toFixed(2)}%</td><td>${prod}</td><td>${teorica.toFixed(0)}</td><td>${parada} min</td><td>${statusOEE(o)}</td></tr>`;}});const mapa={};coletarParadas(lista).forEach(p=>{const chave=(p.maquina||"")+"||"+p.tipo+"||"+p.motivo;mapa[chave]=(mapa[chave]||0)+Number(p.tempo||0);});const tq=document.getElementById("tabelaQuebras");tq.innerHTML="";Object.entries(mapa).sort((a,b)=>b[1]-a[1]).forEach(([chave,tempo])=>{const p=chave.split("||");tq.innerHTML+=`<tr><td>${p[0]}</td><td>${p[1]}</td><td>${p[2]}</td><td>${tempo} min</td></tr>`;});}
 window.atualizarAnaliseOperadores=function(){const lista=filtrarPorData(dados,"opDataIni","opDataFim"),tabela=document.getElementById("tabelaOperadores");tabela.innerHTML="";operadores.forEach(o=>{const reg=lista.filter(x=>x.operador===o);if(reg.length){const oee=media(reg,"oee");tabela.innerHTML+=`<tr><td>${o}</td><td>${reg.length}</td><td>${oee.toFixed(2)}%</td><td>${media(reg,"performance").toFixed(2)}%</td><td>${soma(reg,"qtdProduzida")}</td><td>${soma(reg,"producaoTeorica").toFixed(0)}</td><td>${soma(reg,"pecasRuins")}</td><td>${soma(reg,"paradaNaoPlanejada")} min</td><td>${statusOEE(oee)}</td></tr>`;}});}
